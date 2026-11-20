@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brasil ao Vivo – Brazilian concerts &amp; shows from Cologne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbf7ef; --ink:#1b1f1c; --muted:#5d645f; --line:#e6dfd0;
+    --green:#0d6b4c; --green-d:#08402e; --sun:#f3b81b; --blue:#1f3f8f; --coral:#e2603f;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;line-height:1.5}
+  a{color:var(--green)}
+  header{background:radial-gradient(110% 95% at 78% 45%,#0e5a3b 0%,#08402e 50%,#05291d 100%);color:#fff;position:relative;overflow:hidden}
+  header svg.waves{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  header .wrap{max-width:1240px;padding:64px 40px 44px;position:relative;z-index:1;display:grid;grid-template-columns:1fr minmax(200px,300px);gap:40px;align-items:center}
+  header svg.flag{width:100%;height:auto;display:block;filter:drop-shadow(0 18px 30px rgba(0,0,0,.35))}
+  .langs{position:absolute;top:18px;right:40px;z-index:2;display:flex;gap:2px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:4px}
+  .langs button{all:unset;cursor:pointer;font:700 14px Manrope,sans-serif;letter-spacing:.04em;color:#e3ece7;padding:8px 18px;border-radius:999px}
+  .langs button[aria-pressed="true"]{background:var(--sun);color:var(--green-d)}
+  .langs button:focus-visible{outline:2px solid #fff}
+  .eyebrow{letter-spacing:.2em;text-transform:uppercase;font-size:14px;font-weight:700;color:var(--sun)}
+  h1{font-family:"DM Serif Display",serif;font-weight:400;font-size:clamp(44px,6vw,78px);line-height:.95;margin:10px 0 14px;text-shadow:0 4px 18px rgba(0,0,0,.25)}
+  h1 em{color:var(--sun);font-style:italic}
+  header p{max-width:600px;margin:0;color:#e3ece7;font-size:clamp(17px,1.7vw,21px);line-height:1.45}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .stats{display:flex;flex-wrap:wrap;row-gap:14px;margin-top:26px}
+  .stats div{font-size:15px;color:#d9e6df;padding:0 34px;border-left:1px solid rgba(255,255,255,.22)}
+  .stats div:first-child{padding-left:0;border-left:0}
+  .stats b{display:block;font-family:"DM Serif Display",serif;font-size:36px;line-height:1.1;font-weight:400;color:#fff}
+
+  .controls{position:sticky;top:0;z-index:5;background:rgba(251,247,239,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .controls .wrap{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding-top:14px;padding-bottom:14px}
+  .group{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .group span.lbl{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-right:4px}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 13px;font:600 13px Manrope,sans-serif;color:var(--ink);cursor:pointer}
+  .chip[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+  input[type=search]{flex:1;min-width:180px;border:1px solid var(--line);border-radius:999px;padding:8px 14px;font:500 14px Manrope,sans-serif;background:#fff}
+
+  .news{padding-top:30px}
+  .news-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .news-head h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:30px;margin:0}
+  .news-head h2 em{color:var(--coral)}
+  .news-head small{font-size:13px;color:var(--muted)}
+  .feed{list-style:none;margin:14px 0 0;padding:0;background:#fff;border:1px solid var(--line);border-left:4px solid var(--coral);border-radius:12px}
+  .item{display:grid;grid-template-columns:1fr auto;gap:6px 18px;align-items:baseline;padding:13px 18px;border-bottom:1px solid var(--line)}
+  .item:last-child{border-bottom:0}
+  .item .when{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--coral)}
+  .item h4{margin:0;font-size:15.5px;line-height:1.35}
+  .item p{margin:2px 0 0;font-size:13.5px;color:#3c433e}
+  .item .links{display:flex;gap:14px;font-size:13px;font-weight:700;white-space:nowrap}
+  @media (max-width:720px){.item{grid-template-columns:1fr}.item .links{white-space:normal}}
+  .item .links a{text-decoration:none}
+  .item .links button{all:unset;cursor:pointer;color:var(--blue)}
+  .more{margin-top:10px;font:600 13px Manrope,sans-serif;background:none;border:0;color:var(--green);cursor:pointer;padding:0}
+
+  main .wrap{padding-top:20px;padding-bottom:40px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:12.5px;color:var(--muted);margin:18px 0 0;padding:10px 14px;background:#f4efe3;border-radius:10px}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .legend i{display:inline-block;width:5px;height:16px;border-radius:2px;background:var(--sun)}
+  .legend .tag{font-style:normal}
+  .month{font-family:"DM Serif Display",serif;font-size:28px;font-weight:400;margin:34px 0 12px;display:flex;align-items:baseline;gap:12px}
+  .month small{font-family:Manrope;font-size:13px;color:var(--muted)}
+  .ev{display:grid;grid-template-columns:78px 1fr auto;gap:18px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:10px}
+  .ev.near{border-left:5px solid var(--sun)}
+  .ev.flash{animation:flash 1.8s ease}
+  @keyframes flash{0%,40%{box-shadow:0 0 0 4px var(--sun)}100%{box-shadow:0 0 0 0 transparent}}
+  .date{text-align:center;border-radius:10px;background:#f4efe3;padding:8px 4px}
+  .date .d{font-family:"DM Serif Display",serif;font-size:30px;line-height:1}
+  .date .m{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green)}
+  .date .w{font-size:11px;color:var(--muted)}
+  .ev h3{margin:0 0 2px;font-size:18px}
+  .ev .where{font-size:14px;color:var(--muted)}
+  .ev .where b{color:var(--ink);font-weight:600}
+  .ev .desc{font-size:14px;margin:6px 0 0}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;background:#eef3f0;color:var(--green-d)}
+  .tag.type-Theatre{background:#efeaf8;color:#4b2a8a}
+  .tag.type-Party{background:#fdeee9;color:#9a3519}
+  .tag.type-Exhibition{background:#e6eefb;color:#1f3f8f}
+  .tag.on{background:var(--green);color:#fff}
+  .date.run .w{font-weight:700;color:var(--green)}
+  .tag.km{background:#fff4d4;color:#7a5800}
+  .tag.top{background:var(--blue);color:#fff}
+  .tag.new{background:var(--coral);color:#fff}
+  .ev .go{align-self:center;white-space:nowrap;text-decoration:none;font-weight:700;font-size:13px;border:1.5px solid var(--green);border-radius:999px;padding:7px 14px}
+  .ev .go:hover{background:var(--green);color:#fff}
+  .empty{padding:40px;text-align:center;color:var(--muted)}
+
+  section.info{border-top:1px solid var(--line);background:#f4efe3}
+  section.info .wrap{padding-top:36px;padding-bottom:40px}
+  section.info ul{columns:2;column-gap:36px}
+  section.info li{break-inside:avoid}
+  @media (max-width:720px){section.info ul{columns:1}}
+  section.info h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:26px;margin:0 0 12px}
+  section.info ul{margin:0;padding-left:18px}
+  section.info li{margin-bottom:10px;font-size:14px}
+  footer{font-size:12px;color:var(--muted)}
+  footer .wrap{padding:22px 24px 40px}
+  @media (max-width:720px){
+    .ev{grid-template-columns:64px 1fr}
+    .ev .go{grid-column:2;justify-self:start}
+    section.info .wrap{grid-template-columns:1fr}
+    header .wrap{grid-template-columns:1fr;padding:64px 24px 32px;gap:16px}
+    header .flagwrap{display:none}
+    .langs{right:24px;top:20px}
+    .stats{display:grid;grid-template-columns:1fr 1fr}
+    .stats div{padding:0 18px}
+    .stats div:nth-child(odd){padding-left:0;border-left:0}
+    .stats b{font-size:28px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <svg class="waves" viewBox="0 0 1400 700" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 0 H760 C600 80 330 170 0 250Z" fill="#ffffff" opacity=".035"/>
+    <path d="M1400 430 C1160 500 930 610 720 700 H1400Z" fill="#ffffff" opacity=".045"/>
+    <path d="M1400 560 C1220 600 1080 650 980 700 H1400Z" fill="#ffffff" opacity=".03"/>
+    <path d="M0 540 C240 610 430 650 600 700 H0Z" fill="#000000" opacity=".14"/>
+  </svg>
+  <div class="langs" role="group" aria-label="Language">
+    <button data-lang="en" aria-pressed="true">EN</button>
+    <button data-lang="pt" aria-pressed="false">PT</button>
+    <button data-lang="de" aria-pressed="false">DE</button>
+  </div>
+  <div class="wrap"><div class="hero-text">
+    <div class="eyebrow" data-t="eyebrow"></div>
+    <h1>Brasil <em>ao vivo</em></h1>
+    <p data-t="intro"></p>
+    <div class="stats" id="stats"></div>
+  </div>
+  <div class="flagwrap">
+    <svg class="flag" viewBox="0 0 460 440" aria-hidden="true">
+      <defs>
+        <radialGradient id="fg-circle" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#1a8a57"/><stop offset="1" stop-color="#0f6a43"/></radialGradient>
+        <linearGradient id="fg-sun" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffcf2e"/><stop offset="1" stop-color="#efb000"/></linearGradient>
+        <radialGradient id="fg-blue" cx="45%" cy="40%" r="65%"><stop offset="0" stop-color="#2547a3"/><stop offset="1" stop-color="#16307a"/></radialGradient>
+        <clipPath id="fg-clip"><circle cx="230" cy="220" r="104"/></clipPath>
+      </defs>
+      <circle cx="230" cy="220" r="212" fill="url(#fg-circle)" opacity=".5"/>
+      <path d="M4 220 L230 60 L456 220 L230 380Z" fill="url(#fg-sun)"/>
+      <circle cx="230" cy="220" r="104" fill="url(#fg-blue)"/>
+      <path d="M118 208 Q230 176 342 222" stroke="#fff" stroke-width="11" fill="none" stroke-linecap="round" clip-path="url(#fg-clip)"/>
+    </svg>
+  </div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="wrap">
+    <div class="group" id="regionGroup">
+      <span class="lbl" data-t="where"></span>
+      <button class="chip" data-region="near" aria-pressed="false" data-t="near"></button>
+      <button class="chip" data-region="de" aria-pressed="false" data-t="germany"></button>
+      <button class="chip" data-region="all" aria-pressed="true" data-t="allEurope"></button>
+    </div>
+    <div class="group" id="typeGroup">
+      <span class="lbl" data-t="what"></span>
+      <button class="chip" data-type="all" aria-pressed="true" data-t="everything"></button>
+      <button class="chip" data-type="Concert" aria-pressed="false" data-t="concerts"></button>
+      <button class="chip" data-type="Party" aria-pressed="false" data-t="parties"></button>
+      <button class="chip" data-type="Theatre" aria-pressed="false" data-t="theatre"></button>
+      <button class="chip" data-type="Exhibition" aria-pressed="false" data-t="exhibitions"></button>
+    </div>
+    <input type="search" id="q">
+  </div>
+</div>
+
+<section class="news"><div class="wrap">
+  <div class="news-head"><h2 data-t="newsTitle"></h2><small id="checked"></small></div>
+  <ul class="feed" id="feed"></ul>
+  <button class="more" id="moreNews" hidden></button>
+</div></section>
+
+<main><div class="wrap">
+  <div id="list"></div>
+</div></main>
+
+<section class="info">
+  <div class="wrap">
+    <div><h2 data-t="regularsTitle"></h2><ul id="regulars"></ul></div>
+  </div>
+</section>
+
+<footer><div class="wrap" data-t="footer"></div></footer>
+
+<script>
+const KOELN=[50.9375,6.9603];
+const C={ // city coordinates [lat,lon]
+  "Köln":[50.94,6.96],"Kempen":[51.36,6.42],"Bergkamen":[51.62,7.64],
+  "Berlin":[52.52,13.40],"Hamburg":[53.55,9.99],"Frankfurt":[50.11,8.68],"München":[48.14,11.58],
+  "Amsterdam":[52.37,4.90],"Paris":[48.86,2.35],"London":[51.51,-0.13],"Dublin":[53.35,-6.26],
+  "Lisbon":[38.72,-9.14],"Porto":[41.15,-8.61],"Barcelona":[41.39,2.17],"Rome":[41.90,12.50],
+  "Hannover":[52.37,9.73],"Freiburg":[47.99,7.85],"Mannheim":[49.49,8.47],"Bottrop":[51.52,6.92],
+  "Venice":[45.44,12.33],"Sindelfingen":[48.71,9.00],"Nürnberg":[49.45,11.08],"Rotterdam":[51.92,4.48],
+  "Bonn":[50.71,7.10]
+};
+const DE=new Set(["Köln","Kempen","Bergkamen","Berlin","Hamburg","Frankfurt","München","Hannover","Freiburg","Mannheim","Bottrop","Sindelfingen","Nürnberg","Bonn"]);
+// Optional translated city names (key = city as used in EVENTS)
+const CITY_NAMES={
+  "Köln":{en:"Cologne",pt:"Colônia"},"Berlin":{pt:"Berlim"},"Hamburg":{pt:"Hamburgo"},"München":{en:"Munich",pt:"Munique"},
+  "Lisbon":{pt:"Lisboa",de:"Lissabon"},"Rome":{pt:"Roma",de:"Rom"},"London":{pt:"Londres"},"Amsterdam":{pt:"Amsterdã"},"Venice":{pt:"Veneza",de:"Venedig"},
+  "Nürnberg":{en:"Nuremberg",pt:"Nuremberg"},"Rotterdam":{pt:"Roterdã"}
+};
+
+/* ===================== DATA-START =====================
+   How to update:
+   - META.lastChecked: date (YYYY-MM-DD) of the latest check for new events.
+   - Text fields (title, venue, price, desc, headline, text) may be a plain string (same in all
+     languages) or an object {en:"…", pt:"…", de:"…"} — always give all three for descriptive text.
+     pt = Brazilian Portuguese, de = German. English is the fallback.
+   - EVENTS: one object per show. Fields: d (YYYY-MM-DD), t (time, optional), title, city
+     (must exist in C at the top of this script; add it with [lat,lon] if new; German cities also go
+     in DE; optional translated names in CITY_NAMES), venue, type ("Concert"|"Party"|"Theatre"|"Exhibition"),
+     until (exhibitions only: closing date YYYY-MM-DD; d = opening date),
+     price (optional), desc, url, hot (optional, editor's top pick), added (YYYY-MM-DD it was added;
+     omit for launch set). Past events hide automatically.
+   - NEWS: fields date (YYYY-MM-DD announced/added), headline, text, url,
+     refs: ["YYYY-MM-DD|City", ...] linking to events in the timeline. Sorted newest first in code.
+*/
+const META={launch:"2026-11-18",lastChecked:"2026-11-20"};
+
+const NEWS=[
+ {date:"2026-11-20",
+  headline:{en:"Tarsila do Amaral and Lygia Clark in Bonn: “Vanguardistas” opens 4 December",pt:"Tarsila do Amaral e Lygia Clark em Bonn: “Vanguardistas” abre em 4 de dezembro",de:"Tarsila do Amaral und Lygia Clark in Bonn: „Vanguardistas“ startet am 4. Dezember"},
+  text:{en:"The Bundeskunsthalle's survey of 100 years of Latin American women artists includes Brazilian pioneers Tarsila do Amaral, Lygia Clark and Djanira, with loans from São Paulo's Pinacoteca and MASP – just 25 minutes from Cologne, until 29 March 2027.",pt:"A mostra da Bundeskunsthalle sobre 100 anos de artistas latino‑americanas inclui as pioneiras brasileiras Tarsila do Amaral, Lygia Clark e Djanira, com empréstimos da Pinacoteca e do MASP – a só 25 minutos de Colônia, até 29 de março de 2027.",de:"Die Schau der Bundeskunsthalle über 100 Jahre lateinamerikanischer Künstlerinnen zeigt auch die brasilianischen Pionierinnen Tarsila do Amaral, Lygia Clark und Djanira, mit Leihgaben von Pinacoteca und MASP aus São Paulo – nur 25 Minuten von Köln, bis 29. März 2027."},
+  url:"https://www.bundeskunsthalle.de/en/vanguardistas",refs:["2026-12-04|Bonn"]},
+ {date:"2026-11-20",
+  headline:{en:"Aleijadinho, master of the Brazilian baroque, at the Vatican Museums",pt:"Aleijadinho, mestre do barroco brasileiro, nos Museus Vaticanos",de:"Aleijadinho, Meister des brasilianischen Barock, in den Vatikanischen Museen"},
+  text:{en:"A show on the 18th‑century sculptor and architect from Minas Gerais opened on 18 November in the Borgia Tower rooms and runs until 13 February 2027.",pt:"Uma mostra sobre o escultor e arquiteto mineiro do século XVIII abriu em 18 de novembro nas salas da Torre Borgia e fica em cartaz até 13 de fevereiro de 2027.",de:"Eine Ausstellung über den Bildhauer und Architekten aus Minas Gerais (18. Jh.) ist seit 18. November in den Räumen des Borgia‑Turms zu sehen, bis 13. Februar 2027."},
+  url:"https://www.museivaticani.va/content/museivaticani/en/eventi-e-novita/iniziative/mostre/2026/aleijadinho-maestro-barocco-brasiliano.html",refs:["2026-11-18|Rome"]},
+ {date:"2026-11-19",
+  headline:{en:"Ernesto Neto at the Depot Boijmans in Rotterdam",pt:"Ernesto Neto no Depot Boijmans, em Roterdã",de:"Ernesto Neto im Depot Boijmans in Rotterdam"},
+  text:{en:"Museum Boijmans Van Beuningen has announced a show by the Rio artist, known for his walk‑in crocheted sculptures, at its Depot from 17 April to 19 September 2027. Rotterdam is about 2.5 hours from Cologne by train.",pt:"O Museu Boijmans Van Beuningen anunciou uma mostra do artista carioca, conhecido por suas esculturas de crochê que podem ser percorridas, no seu Depot de 17 de abril a 19 de setembro de 2027. Roterdã fica a cerca de 2h30 de trem de Colônia.",de:"Das Museum Boijmans Van Beuningen zeigt den Künstler aus Rio, bekannt für seine begehbaren Häkelskulpturen, vom 17. April bis 19. September 2027 in seinem Depot. Rotterdam ist von Köln aus in rund 2,5 Stunden mit dem Zug erreichbar."},
+  url:"https://www.boijmans.nl/en/exhibitions/ernestoneto",refs:["2027-04-17|Rotterdam"]},
+ {date:"2026-11-19",
+  headline:{en:"Leo Middea adds Nuremberg to his German tour",pt:"Leo Middea inclui Nuremberg na turnê pela Alemanha",de:"Leo Middea ergänzt seine Deutschlandtour um Nürnberg"},
+  text:{en:"Another date for the Rio‑born singer‑songwriter: Z‑Bau in Nuremberg on 7 April 2027. There is still no NRW date.",pt:"Mais uma data para o cantor e compositor carioca: Z‑Bau, em Nuremberg, em 7 de abril de 2027. Ainda não há data na Renânia do Norte‑Vestfália.",de:"Ein weiterer Termin für den in Rio geborenen Singer‑Songwriter: Z‑Bau in Nürnberg am 7. April 2027. Ein NRW‑Termin fehlt weiterhin."},
+  url:"https://shotgun.live/events/leo-middea-z-bau-nurnberg",refs:["2027-04-07|Nürnberg"]},
+ {date:"2026-11-19",
+  headline:{en:"Ana Carolina brings her 25‑year tour to Portugal",pt:"Ana Carolina leva a turnê de 25 anos a Portugal",de:"Ana Carolina bringt ihre Jubiläumstour nach Portugal"},
+  text:{en:"The MPB singer celebrates 25 years of her career at Lisbon's Coliseu dos Recreios on 12 March and the Coliseu do Porto on 13 March 2027.",pt:"A cantora celebra 25 anos de carreira no Coliseu dos Recreios, em Lisboa, em 12 de março, e no Coliseu do Porto, em 13 de março de 2027.",de:"Die MPB‑Sängerin feiert 25 Jahre Karriere am 12. März 2027 im Coliseu dos Recreios in Lissabon und am 13. März im Coliseu do Porto."},
+  url:"https://dnbrasil.dn.pt/cultura-dn-brasil/ana-carolina-inclui-portugal-na-turn-de-25-anos",refs:["2027-03-12|Lisbon","2027-03-13|Porto"]},
+ {date:"2026-11-18",
+  headline:{en:"Sonia Gomes takes over the Palais de Tokyo",pt:"Sonia Gomes ocupa o Palais de Tokyo",de:"Sonia Gomes im Palais de Tokyo"},
+  text:{en:"The Brazilian textile sculptor's Paris show “Wild Heart” runs until 14 February 2027.",pt:"A mostra “Cœur sauvage” da escultora têxtil brasileira fica em cartaz em Paris até 14 de fevereiro de 2027.",de:"Die Pariser Schau „Wild Heart“ der brasilianischen Textilbildhauerin läuft bis 14. Februar 2027."},
+  url:"https://palaisdetokyo.com/en/exposition/wild-heart/",refs:["2026-10-21|Paris"]},
+ {date:"2026-11-18",
+  headline:{en:"Three Brazilian artists at Schauwerk Sindelfingen",pt:"Três artistas brasileiros no Schauwerk Sindelfingen",de:"Drei brasilianische Künstler:innen im Schauwerk Sindelfingen"},
+  text:{en:"Immersive installations by Vivian Caccuri, Lucia Koch and Henrique Oliveira are on view near Stuttgart until 18 July 2027.",pt:"As instalações imersivas de Vivian Caccuri, Lucia Koch e Henrique Oliveira ficam em cartaz perto de Stuttgart até 18 de julho de 2027.",de:"Die immersiven Installationen von Vivian Caccuri, Lucia Koch und Henrique Oliveira sind bis 18. Juli 2027 bei Stuttgart zu sehen."},
+  url:"https://en.ilsole24ore.com/art/at-the-schauwerk-three-brazilian-artists-play-with-the-senses-in-an-immersive-work-AJoplGOB",refs:["2026-09-27|Sindelfingen"]},
+ {date:"2026-11-18",
+  headline:{en:"Leo Middea announces a full‑band German tour for spring 2027",pt:"Leo Middea anuncia turnê com banda pela Alemanha na primavera de 2027",de:"Leo Middea kündigt Deutschlandtour mit Band für Frühjahr 2027 an"},
+  text:{en:"The Rio‑born, Lisbon‑based singer‑songwriter plays Hamburg, Hannover, Freiburg, Munich and Mannheim between 20 March and 11 April 2027 – no NRW date so far.",pt:"O cantor e compositor carioca radicado em Lisboa passa por Hamburgo, Hannover, Freiburg, Munique e Mannheim entre 20 de março e 11 de abril de 2027 – ainda sem data na Renânia do Norte‑Vestfália.",de:"Der in Rio geborene, in Lissabon lebende Singer‑Songwriter spielt zwischen 20. März und 11. April 2027 in Hamburg, Hannover, Freiburg, München und Mannheim – bislang ohne NRW‑Termin."},
+  url:"https://shotgun.live/en/events/leo-middea-mojo-club-hamburg",refs:["2027-03-20|Hamburg","2027-03-21|Hannover","2027-04-08|Freiburg","2027-04-09|München","2027-04-11|Mannheim"]},
+ {date:"2026-11-18",
+  headline:{en:"Next Roda de Samba night at YUCA: 23 January",pt:"Próxima Roda de Samba no YUCA: 23 de janeiro",de:"Nächste Roda‑de‑Samba‑Nacht im YUCA: 23. Januar"},
+  text:{en:"After the Christmas afternoon at CBE, Roda de Samba do Alemão is back at YUCA Club on Saturday 23 January 2027 from 11 pm.",pt:"Depois da tarde natalina no CBE, a Roda de Samba do Alemão volta ao YUCA Club no sábado, 23 de janeiro de 2027, a partir das 23h.",de:"Nach dem Weihnachtsnachmittag im CBE ist die Roda de Samba do Alemão am Samstag, 23. Januar 2027, ab 23 Uhr wieder im YUCA Club."},
+  url:"https://rodadesambadoalemao.com/",refs:["2027-01-23|Köln"]},
+ {date:"2026-11-18",
+  headline:{en:"Brazilian choro in NRW: Mondo Chôro in Bottrop and Kempen",pt:"Choro na Renânia: Mondo Chôro em Bottrop e Kempen",de:"Choro in NRW: Mondo Chôro in Bottrop und Kempen"},
+  text:{en:"The quartet around pianist Henrique Gomide blends choro, samba and baião with jazz – Bottrop on 29 April, Kempen on 30 April 2027 (Kempen single tickets on sale from 12 December).",pt:"O quarteto do pianista Henrique Gomide mistura choro, samba e baião com jazz – Bottrop em 29 de abril e Kempen em 30 de abril de 2027 (ingressos avulsos em Kempen a partir de 12 de dezembro).",de:"Das Quartett um Pianist Henrique Gomide verbindet Choro, Samba und Baião mit Jazz – Bottrop am 29. April, Kempen am 30. April 2027 (Kempener Einzeltickets ab 12. Dezember)."},
+  url:"https://www.mvp.de/nordrhein-westfalen/veranstaltungen/mondo-choro-jazz-forjando-o-caminho-kempen/",refs:["2027-04-29|Bottrop","2027-04-30|Kempen"]},
+ {date:"2026-11-18",
+  headline:{en:"Luísa Sonza books Portugal's big arenas for April 2027",pt:"Luísa Sonza leva show às grandes arenas de Portugal em abril de 2027",de:"Luísa Sonza spielt im April 2027 in Portugals großen Arenen"},
+  text:{en:"The pop star plays Porto's Super Bock Arena on 16 April and Lisbon's MEO Arena on 17 April 2027; tickets from €40.",pt:"A cantora pop se apresenta na Super Bock Arena, no Porto, em 16 de abril, e na MEO Arena, em Lisboa, em 17 de abril de 2027; ingressos a partir de €40.",de:"Der Popstar tritt am 16. April 2027 in der Super Bock Arena in Porto und am 17. April in der MEO Arena in Lissabon auf; Tickets ab 40 €."},
+  url:"https://dnbrasil.dn.pt/lusa-sonza-anuncia-shows-em-portugal-em-2027-com-passagem-por-lisboa-e-porto",refs:["2027-04-16|Porto","2027-04-17|Lisbon"]},
+ {date:"2026-11-18",
+  headline:{en:"Dominguinho brings Vol. 2 to Europe – one German date",pt:"Dominguinho leva o Vol. 2 à Europa – uma data na Alemanha",de:"Dominguinho bringt Vol. 2 nach Europa – ein Deutschland‑Termin"},
+  text:{en:"João Gomes, Mestrinho & Jota.pê tour 7 cities in February 2027. The only German show is Berlin's Tempodrom on 19 Feb.",pt:"João Gomes, Mestrinho e Jota.pê passam por 7 cidades em fevereiro de 2027. O único show na Alemanha é no Tempodrom de Berlim, em 19/2.",de:"João Gomes, Mestrinho & Jota.pê touren im Februar 2027 durch 7 Städte. Die einzige Show in Deutschland ist am 19. Feb. im Berliner Tempodrom."},
+  url:"https://bossafm.com/concerts-berlin/tempodrom/2027/02/19/dominguinho",refs:["2027-02-19|Berlin"]},
+ {date:"2026-11-18",
+  headline:{en:"Eliane Elias meets the WDR Big Band in Cologne",pt:"Eliane Elias encontra a WDR Big Band em Colônia",de:"Eliane Elias trifft die WDR Big Band in Köln"},
+  text:{en:"First joint project of the Brazilian pianist and the WDR Big Band, arranged by Vince Mendoza – Kölner Philharmonie, 6 March 2027.",pt:"Primeiro projeto conjunto da pianista brasileira com a WDR Big Band, com arranjos de Vince Mendoza – Kölner Philharmonie, 6 de março de 2027.",de:"Erstes gemeinsames Projekt der brasilianischen Pianistin mit der WDR Big Band, arrangiert von Vince Mendoza – Kölner Philharmonie, 6. März 2027."},
+  url:"https://www.koelner-philharmonie.de/en/events/an-evening-with-eliane-elias-and-wdr-big-band-feat-marc-johnson-and-vince-mendoza/9249",refs:["2027-03-06|Köln"]},
+ {date:"2026-11-18",
+  headline:{en:"Elba Ramalho celebrates 40 years on stage with a European tour",pt:"Elba Ramalho celebra 40 anos de carreira com turnê europeia",de:"Elba Ramalho feiert 40 Bühnenjahre mit Europatour"},
+  text:{en:"Seven dates from Amsterdam (21 Apr) to Berlin (2 May 2027), including London, Paris, Dublin, Lisbon and Porto.",pt:"Sete datas de Amsterdã (21/4) a Berlim (2/5/2027), passando por Londres, Paris, Dublin, Lisboa e Porto.",de:"Sieben Termine von Amsterdam (21. Apr.) bis Berlin (2. Mai 2027), u. a. London, Paris, Dublin, Lissabon und Porto."},
+  url:"https://bossafm.com/concerts-berlin/festsaal-krezuberg/elba-ramalho",refs:["2027-04-21|Amsterdam","2027-05-02|Berlin"]},
+ {date:"2026-11-18",
+  headline:{en:"Marisa Monte confirms Germany for autumn 2027",pt:"Marisa Monte confirma Alemanha no outono de 2027",de:"Marisa Monte kommt im Herbst 2027 nach Deutschland"},
+  text:{en:"Frankfurt's Alte Oper on 29 Sep and Munich's Isarphilharmonie on 4 Oct 2027.",pt:"Alte Oper de Frankfurt em 29/9 e Isarphilharmonie de Munique em 4/10/2027.",de:"Alte Oper Frankfurt am 29. Sep. und Isarphilharmonie München am 4. Okt. 2027."},
+  url:"https://www.songkick.com/artists/22829-marisa-monte",refs:["2027-09-29|Frankfurt"]},
+ {date:"2026-11-18",
+  headline:{en:"Roda do Alemão plays a Christmas samba afternoon",pt:"Roda do Alemão faz tarde de samba natalina",de:"Roda do Alemão spielt einen Weihnachts‑Samba‑Nachmittag"},
+  text:{en:"“Natal em Família” at CBE in Ehrenfeld on Sunday 20 December, 3 pm.",pt:"“Natal em Família” no CBE, em Ehrenfeld, domingo, 20 de dezembro, às 15h.",de:"„Natal em Família“ im CBE in Ehrenfeld am Sonntag, 20. Dezember, 15 Uhr."},
+  url:"https://rodadesambadoalemao.com/",refs:["2026-12-20|Köln"]},
+ {date:"2026-11-18",
+  headline:{en:"Carnaval: Baile da Bossa returns in February",pt:"Carnaval: Baile da Bossa volta em fevereiro",de:"Carnaval: Baile da Bossa kehrt im Februar zurück"},
+  text:{en:"Bossa FM's carnival ball with a live bloco band – Hamburg Fabrik (5 Feb) and Berlin Festsaal Kreuzberg (6 Feb 2027).",pt:"O baile de carnaval da Bossa FM com bloco ao vivo – Fabrik de Hamburgo (5/2) e Festsaal Kreuzberg de Berlim (6/2/2027).",de:"Der Karnevalsball von Bossa FM mit Live‑Bloco‑Band – Fabrik Hamburg (5. Feb.) und Festsaal Kreuzberg Berlin (6. Feb. 2027)."},
+  url:"https://www.bossafm.com/events/carnaval-baile-da-bossa/booking",refs:["2027-02-05|Hamburg"]},
+];
+
+const EVENTS=[
+ {d:"2026-11-22",t:"20:00",title:"Chico Chico",city:"Berlin",venue:"Lido",type:"Concert",price:{en:"from €25",pt:"a partir de €25",de:"ab 25 €"},
+  desc:{en:"Rising MPB singer‑songwriter from Rio, son of Cássia Eller, touring his new album.",pt:"Cantor e compositor carioca em ascensão na MPB, filho de Cássia Eller, em turnê com o novo álbum.",de:"Aufstrebender MPB‑Singer‑Songwriter aus Rio, Sohn von Cássia Eller, auf Tour mit seinem neuen Album."},
+  url:"https://www.lido-berlin.de/events/2026-11-22-chico-chico"},
+ {d:"2026-11-22",title:"“Notícias em Cena” – PT‑BR Mostra Teatro Brasil",city:"Lisbon",venue:{en:"Festival venue (see link)",pt:"Local do festival (ver link)",de:"Festivalort (siehe Link)"},type:"Theatre",
+  desc:{en:"Public presentation closing the residency of the 3rd Brazilian theatre showcase in Portugal (festival runs to 28 Nov).",pt:"Apresentação pública que encerra a residência da 3ª Mostra de Teatro Brasileiro em Portugal (festival até 28/11).",de:"Öffentliche Präsentation zum Abschluss der Residenz des 3. brasilianischen Theaterfestivals in Portugal (läuft bis 28. Nov.)."},
+  url:"https://dnbrasil.dn.pt/cultura-dn-brasil/mostra-de-teatro-brasileiro-rene-16-espetculos-em-portugal-e-outros-quatro-pases-de-lngua-portuguesa"},
+ {d:"2026-11-25",title:"Chico Chico",city:"Dublin",venue:"Button Factory",type:"Concert",
+  desc:{en:"Second European date of Chico Chico's tour.",pt:"Segunda data europeia da turnê de Chico Chico.",de:"Zweiter Europa‑Termin von Chico Chicos Tour."},
+  url:"https://bossafm.com/"},
+ {d:"2026-12-07",title:"Tasha & Tracie",city:"Dublin",venue:"The Grand Social",type:"Concert",
+  desc:{en:"Twin sisters from São Paulo, leading voices of Brazilian trap and hip hop.",pt:"Irmãs gêmeas de São Paulo, vozes de destaque do trap e do hip hop brasileiro.",de:"Zwillingsschwestern aus São Paulo, führende Stimmen des brasilianischen Trap und Hip‑Hop."},
+  url:"https://bossafm.com/"},
+ {d:"2026-12-11",title:"Tasha & Tracie",city:"Berlin",venue:"Maaya",type:"Concert",
+  desc:{en:"Brazilian trap & hip hop duo, presented by Bossa FM.",pt:"Dupla de trap e hip hop brasileiro, apresentada pela Bossa FM.",de:"Brasilianisches Trap‑ & Hip‑Hop‑Duo, präsentiert von Bossa FM."},
+  url:"https://bossafm.com/"},
+ {d:"2026-12-20",t:"15:00",title:"Roda do Alemão – Natal em Família",city:"Köln",venue:"CBE – Club Bahnhof Ehrenfeld",type:"Party",
+  desc:{en:"Christmas afternoon edition of Cologne's favourite samba roda – family‑friendly samba, pagode and Brazilian classics.",pt:"Edição natalina, à tarde, da roda de samba mais querida de Colônia – samba, pagode e clássicos brasileiros para toda a família.",de:"Weihnachtliche Nachmittagsausgabe von Kölns beliebtester Samba‑Roda – familienfreundlich mit Samba, Pagode und brasilianischen Klassikern."},
+  url:"https://rodadesambadoalemao.com/"},
+ {d:"2027-02-05",title:"Carnaval: Baile da Bossa",city:"Hamburg",venue:"Fabrik",type:"Party",
+  desc:{en:"Carnival ball with a full bloco band – samba, axé, frevo, maracatu.",pt:"Baile de carnaval com banda de bloco completa – samba, axé, frevo, maracatu.",de:"Karnevalsball mit kompletter Bloco‑Band – Samba, Axé, Frevo, Maracatu."},
+  url:"https://www.bossafm.com/events/carnaval-baile-da-bossa/booking"},
+ {d:"2027-02-06",title:"Carnaval: Baile da Bossa",city:"Berlin",venue:"Festsaal Kreuzberg",type:"Party",
+  desc:{en:"Bossa FM's carnival ball – samba, axé, frevo, maracatu.",pt:"O baile de carnaval da Bossa FM – samba, axé, frevo, maracatu.",de:"Der Karnevalsball von Bossa FM – Samba, Axé, Frevo, Maracatu."},
+  url:"https://www.bossafm.com/events/carnaval-baile-da-bossa/booking"},
+ {d:"2027-02-18",title:"Dominguinho – João Gomes, Mestrinho & Jota.pê",city:"Dublin",venue:"National Stadium",type:"Concert",
+  desc:{en:"Latin Grammy‑winning forró project, now touring Dominguinho Vol. 2.",pt:"Projeto de forró vencedor do Grammy Latino, agora em turnê com Dominguinho Vol. 2.",de:"Latin‑Grammy‑prämiertes Forró‑Projekt, jetzt auf Tour mit Dominguinho Vol. 2."},
+  url:"https://bossafm.com/"},
+ {d:"2027-02-19",title:"Dominguinho – João Gomes, Mestrinho & Jota.pê",city:"Berlin",venue:"Tempodrom",type:"Concert",hot:true,
+  desc:{en:"The only German date: forró, accordion and new MPB from three of Brazil's hottest names. Kids welcome with ear protection.",pt:"A única data na Alemanha: forró, sanfona e nova MPB com três dos nomes mais quentes do Brasil. Crianças bem-vindas com protetor auricular.",de:"Der einzige Deutschland‑Termin: Forró, Akkordeon und neue MPB von drei der angesagtesten Namen Brasiliens. Kinder mit Gehörschutz willkommen."},
+  url:"https://bossafm.com/concerts-berlin/tempodrom/2027/02/19/dominguinho"},
+ {d:"2027-02-20",t:"20:00",title:"Dominguinho",city:"Rome",venue:"Auditorium Parco della Musica",type:"Concert",
+  desc:{en:"Back in Italy after a sold‑out Milan show.",pt:"De volta à Itália após show esgotado em Milão.",de:"Zurück in Italien nach ausverkauftem Konzert in Mailand."},
+  url:"https://www.turismoroma.it/en/events/dominguinho-jo%C3%A3o-gomes-jotap%C3%AA-mestrinho"},
+ {d:"2027-02-21",title:"Dominguinho",city:"Porto",venue:"Super Bock Arena – Pavilhão Rosa Mota",type:"Concert",
+  desc:{en:"Return to Portugal after four sold‑out shows in 2026.",pt:"Volta a Portugal após quatro shows esgotados em 2026.",de:"Rückkehr nach Portugal nach vier ausverkauften Shows 2026."},
+  url:"https://www.visitportugal.com/en/node/523861"},
+ {d:"2027-02-25",t:"19:30",title:"Dominguinho",city:"Barcelona",venue:"Sant Jordi Club",type:"Concert",
+  desc:{en:"One of two Spanish dates (Madrid date also announced).",pt:"Uma das duas datas na Espanha (data em Madri também anunciada).",de:"Einer von zwei Spanien‑Terminen (Madrid ebenfalls angekündigt)."},
+  url:"https://palausantjordi.barcelona/en/dominguinho"},
+ {d:"2027-02-26",t:"19:00",title:"Dominguinho",city:"London",venue:"Roundhouse",type:"Concert",
+  desc:{en:"London date of the 2027 European tour.",pt:"Data em Londres da turnê europeia de 2027.",de:"London‑Termin der Europatour 2027."},
+  url:"https://app.ckord.com/performances/5ef1c58f-a08d-4f3c-b026-1e1f3b75cb98"},
+ {d:"2027-02-27",t:"21:30",title:"Dominguinho",city:"Lisbon",venue:"Sagres Campo Pequeno",type:"Concert",price:"€30–60",
+  desc:{en:"Lisbon finale of the European run.",pt:"Encerramento da turnê europeia em Lisboa.",de:"Lissabon‑Finale der Europatour."},
+  url:"https://dnbrasil.dn.pt/dominguinho-volta-a-portugal-em-2027-com-shows-no-porto-e-em-lisboa"},
+ {d:"2027-03-06",t:"20:00",title:"Eliane Elias & WDR Big Band – “Latin Manhattan”",city:"Köln",venue:"Kölner Philharmonie",type:"Concert",hot:true,
+  price:{en:"€12–49 (under‑29s €9)",pt:"€12–49 (menores de 29: €9)",de:"12–49 € (unter 29: 9 €)"},
+  desc:{en:"São Paulo‑born pianist and singer meets the WDR Big Band for the first time – bossa nova, swing and modern jazz, arranged by Vince Mendoza, with Marc Johnson on bass.",pt:"A pianista e cantora paulistana encontra a WDR Big Band pela primeira vez – bossa nova, swing e jazz moderno, com arranjos de Vince Mendoza e Marc Johnson no baixo.",de:"Die in São Paulo geborene Pianistin und Sängerin trifft erstmals auf die WDR Big Band – Bossa Nova, Swing und moderner Jazz, arrangiert von Vince Mendoza, mit Marc Johnson am Bass."},
+  url:"https://www.koelner-philharmonie.de/en/events/an-evening-with-eliane-elias-and-wdr-big-band-feat-marc-johnson-and-vince-mendoza/9249"},
+ {d:"2027-04-21",t:"19:30",title:{en:"Elba Ramalho – 40 Years of Career",pt:"Elba Ramalho – 40 Anos de Carreira",de:"Elba Ramalho – 40 Jahre Karriere"},city:"Amsterdam",venue:"Melkweg",type:"Concert",
+  desc:{en:"Queen of northeastern Brazilian rhythms – forró, baião, frevo. Closest date to Cologne (~2.5 h by train).",pt:"Rainha dos ritmos nordestinos – forró, baião, frevo. A data mais próxima de Colônia (~2h30 de trem).",de:"Königin der nordostbrasilianischen Rhythmen – Forró, Baião, Frevo. Nächster Termin zu Köln (~2,5 Std. mit dem Zug)."},
+  url:"https://allevents.in/performer/elba-ramalho"},
+ {d:"2027-04-23",t:"19:00",title:"Elba Ramalho",city:"London",venue:"Islington Assembly Hall",type:"Concert",
+  desc:{en:"40 years of career tour.",pt:"Turnê de 40 anos de carreira.",de:"Tour zum 40‑jährigen Bühnenjubiläum."},
+  url:"https://www.ents24.com/london-events/islington-assembly-hall/elba-ramalho/7497142"},
+ {d:"2027-04-24",title:"Elba Ramalho",city:"Paris",venue:"New Morning",type:"Concert",price:"≈ €35",
+  desc:{en:"Intimate jazz club (450 capacity).",pt:"Clube de jazz intimista (450 lugares).",de:"Intimer Jazzclub (450 Plätze)."},
+  url:"https://www.songkick.com/de/concerts/43312263-elba-ramalho-at-new-morning"},
+ {d:"2027-04-25",t:"19:00",title:"Elba Ramalho",city:"Dublin",venue:"Button Factory",type:"Concert",
+  desc:{en:"Presented by Bossa FM, Real Events and Primeira Linha.",pt:"Apresentado por Bossa FM, Real Events e Primeira Linha.",de:"Präsentiert von Bossa FM, Real Events und Primeira Linha."},
+  url:"https://bossafm.com/concerts/dublin/button-factory/elba-ramalho"},
+ {d:"2027-04-30",t:"21:30",title:"Elba Ramalho",city:"Lisbon",venue:"Cineteatro Capitólio",type:"Concert",
+  desc:{en:"Lisbon date of the European tour.",pt:"Data em Lisboa da turnê europeia.",de:"Lissabon‑Termin der Europatour."},
+  url:"https://dnbrasil.dn.pt/cultura-dn-brasil/elba-ramalho-volta-a-lisboa-para-show-no-capitlio-em-abril-de-2027"},
+ {d:"2027-05-01",title:"Elba Ramalho",city:"Porto",venue:"Casa da Música",type:"Concert",
+  desc:{en:"Porto date of the European tour.",pt:"Data no Porto da turnê europeia.",de:"Porto‑Termin der Europatour."},
+  url:"https://allevents.in/performer/elba-ramalho"},
+ {d:"2027-05-02",t:"19:00",title:{en:"Elba Ramalho – 40 Years of Career",pt:"Elba Ramalho – 40 Anos de Carreira",de:"Elba Ramalho – 40 Jahre Karriere"},city:"Berlin",venue:"Festsaal Kreuzberg",type:"Concert",
+  desc:{en:"Only German date. Elba was discovered by Chico Buarque and shared stages with Luiz Gonzaga and Dominguinhos.",pt:"Única data na Alemanha. Elba foi revelada por Chico Buarque e dividiu palcos com Luiz Gonzaga e Dominguinhos.",de:"Einziger Deutschland‑Termin. Elba wurde von Chico Buarque entdeckt und stand mit Luiz Gonzaga und Dominguinhos auf der Bühne."},
+  url:"https://bossafm.com/concerts-berlin/festsaal-krezuberg/elba-ramalho"},
+ {d:"2027-06-11",t:"20:00",title:"Matheus Donato Trio",city:"Kempen",venue:"Kulturforum Franziskanerkloster, Paterskirche",type:"Concert",
+  desc:{en:"Virtuoso Brazilian trio – an easy trip from Cologne on the Lower Rhine.",pt:"Trio brasileiro virtuoso – um passeio fácil a partir de Colônia, no Baixo Reno.",de:"Virtuoses brasilianisches Trio – ein einfacher Ausflug von Köln an den Niederrhein."},
+  url:"https://www.mvp.de/krefeld/veranstaltungen/matheus-donato-trio-brasilien-weltmusik-virtuos-magische-kempen/"},
+ {d:"2027-06-14",t:"20:00",title:"Matheus Donato Trio",city:"Bergkamen",venue:"Trauzimmer Marina Rünthe",type:"Concert",
+  desc:{en:"Small‑room concert in the Ruhr area.",pt:"Show intimista na região do Ruhr.",de:"Konzert im kleinen Rahmen im Ruhrgebiet."},
+  url:"https://www.regioactive.de/konzert/matheus-donato-trio-brasilien-bergkamen-trauzimmer-marina-ruenthe-2027-06-14-BC1lflNQjs"},
+ {d:"2027-09-29",title:"Marisa Monte",city:"Frankfurt",venue:"Alte Oper",type:"Concert",hot:true,
+  desc:{en:"One of the great voices of MPB – nearest date to Cologne (~1 h by ICE).",pt:"Uma das grandes vozes da MPB – a data mais próxima de Colônia (~1h de ICE).",de:"Eine der großen Stimmen der MPB – nächster Termin zu Köln (~1 Std. mit dem ICE)."},
+  url:"https://www.songkick.com/artists/22829-marisa-monte"},
+ {d:"2027-10-04",title:"Marisa Monte",city:"München",venue:"Isarphilharmonie im Gasteig HP8",type:"Concert",
+  desc:{en:"Second German date.",pt:"Segunda data na Alemanha.",de:"Zweiter Deutschland‑Termin."},
+  url:"https://www.songkick.com/artists/22829-marisa-monte"},
+ {d:"2027-01-23",t:"23:00",title:"Roda de Samba do Alemão",city:"Köln",venue:"YUCA Club",type:"Party",added:"2026-11-18",
+  desc:{en:"Cologne's samba roda back at YUCA – samba de raiz, pagode and MPB late into the night.",pt:"A roda de samba de Colônia de volta ao YUCA – samba de raiz, pagode e MPB noite adentro.",de:"Kölns Samba‑Roda wieder im YUCA – Samba de Raiz, Pagode und MPB bis tief in die Nacht."},
+  url:"https://rodadesambadoalemao.com/"},
+ {d:"2027-03-20",t:"20:30",title:"Leo Middea",city:"Hamburg",venue:"Mojo Club",type:"Concert",added:"2026-11-18",
+  desc:{en:"Rio‑born, Lisbon‑based singer‑songwriter mixing MPB, samba and folk, now touring with a full band.",pt:"Cantor e compositor carioca radicado em Lisboa, misturando MPB, samba e folk, agora em turnê com banda completa.",de:"In Rio geborener, in Lissabon lebender Singer‑Songwriter zwischen MPB, Samba und Folk – jetzt mit kompletter Band auf Tour."},
+  url:"https://shotgun.live/en/events/leo-middea-mojo-club-hamburg"},
+ {d:"2027-03-21",title:"Leo Middea",city:"Hannover",venue:"Kulturzentrum Faust",type:"Concert",added:"2026-11-18",
+  desc:{en:"Rio‑born, Lisbon‑based singer‑songwriter mixing MPB, samba and folk, now touring with a full band.",pt:"Cantor e compositor carioca radicado em Lisboa, misturando MPB, samba e folk, agora em turnê com banda completa.",de:"In Rio geborener, in Lissabon lebender Singer‑Songwriter zwischen MPB, Samba und Folk – jetzt mit kompletter Band auf Tour."},
+  url:"https://shotgun.live/en/events/leo-middea-kulturzentrum-faust-hannover"},
+ {d:"2027-04-08",t:"20:30",title:"Leo Middea",city:"Freiburg",venue:"Jazzhaus",type:"Concert",added:"2026-11-18",
+  desc:{en:"Rio‑born, Lisbon‑based singer‑songwriter mixing MPB, samba and folk, now touring with a full band.",pt:"Cantor e compositor carioca radicado em Lisboa, misturando MPB, samba e folk, agora em turnê com banda completa.",de:"In Rio geborener, in Lissabon lebender Singer‑Songwriter zwischen MPB, Samba und Folk – jetzt mit kompletter Band auf Tour."},
+  url:"https://shotgun.live/en/events/leo-middea-jazzhaus-freiburg"},
+ {d:"2027-04-09",t:"20:00",title:"Leo Middea",city:"München",venue:"Muffathalle",type:"Concert",added:"2026-11-18",
+  desc:{en:"Rio‑born, Lisbon‑based singer‑songwriter mixing MPB, samba and folk, now touring with a full band.",pt:"Cantor e compositor carioca radicado em Lisboa, misturando MPB, samba e folk, agora em turnê com banda completa.",de:"In Rio geborener, in Lissabon lebender Singer‑Songwriter zwischen MPB, Samba und Folk – jetzt mit kompletter Band auf Tour."},
+  url:"https://shotgun.live/en/events/leo-middea-live-muffathalle-munchen"},
+ {d:"2027-04-11",title:"Leo Middea",city:"Mannheim",venue:"Alte Feuerwache",type:"Concert",added:"2026-11-18",
+  desc:{en:"Rio‑born, Lisbon‑based singer‑songwriter mixing MPB, samba and folk, now touring with a full band.",pt:"Cantor e compositor carioca radicado em Lisboa, misturando MPB, samba e folk, agora em turnê com banda completa.",de:"In Rio geborener, in Lissabon lebender Singer‑Songwriter zwischen MPB, Samba und Folk – jetzt mit kompletter Band auf Tour."},
+  url:"https://shotgun.live/en/events/leo-middea-alte-feuerwache-mannheim"},
+ {d:"2027-04-16",title:"Luísa Sonza",city:"Porto",venue:"Super Bock Arena",type:"Concert",price:{en:"from €40",pt:"a partir de €40",de:"ab 40 €"},added:"2026-11-18",
+  desc:{en:"Brazilian pop star in one of Portugal's biggest arenas.",pt:"A estrela do pop brasileiro em uma das maiores arenas de Portugal.",de:"Brasilianischer Popstar in einer der größten Arenen Portugals."},
+  url:"https://dnbrasil.dn.pt/lusa-sonza-anuncia-shows-em-portugal-em-2027-com-passagem-por-lisboa-e-porto"},
+ {d:"2027-04-17",title:"Luísa Sonza",city:"Lisbon",venue:"MEO Arena",type:"Concert",price:{en:"from €40",pt:"a partir de €40",de:"ab 40 €"},added:"2026-11-18",
+  desc:{en:"Brazilian pop star in one of Portugal's biggest arenas.",pt:"A estrela do pop brasileiro em uma das maiores arenas de Portugal.",de:"Brasilianischer Popstar in einer der größten Arenen Portugals."},
+  url:"https://dnbrasil.dn.pt/lusa-sonza-anuncia-shows-em-portugal-em-2027-com-passagem-por-lisboa-e-porto"},
+ {d:"2027-04-29",t:"19:30",title:"Mondo Chôro",city:"Bottrop",venue:"Kulturzentrum August Everding",type:"Concert",price:{en:"from €18",pt:"a partir de €18",de:"ab 18 €"},added:"2026-11-18",
+  desc:{en:"Quartet around Brazilian pianist Henrique Gomide – choro, samba, baião and ijexá meet jazz.",pt:"Quarteto do pianista brasileiro Henrique Gomide – choro, samba, baião e ijexá encontram o jazz.",de:"Quartett um den brasilianischen Pianisten Henrique Gomide – Choro, Samba, Baião und Ijexá treffen auf Jazz."},
+  url:"https://www.mvp.de/bottrop/veranstaltungen/mondo-choro-kulturzentrum-august-everding-bottrop/"},
+ {d:"2027-04-30",t:"20:00",title:"Mondo Chôro – „Forjando O Caminho“",city:"Kempen",venue:"Haus für Familien / Campus",type:"Concert",price:{en:"≈ €18–20",pt:"≈ €18–20",de:"ca. 18–20 €"},added:"2026-11-18",
+  desc:{en:"Quartet around Brazilian pianist Henrique Gomide – choro, samba, baião and ijexá meet jazz.",pt:"Quarteto do pianista brasileiro Henrique Gomide – choro, samba, baião e ijexá encontram o jazz.",de:"Quartett um den brasilianischen Pianisten Henrique Gomide – Choro, Samba, Baião und Ijexá treffen auf Jazz."},
+  url:"https://www.mvp.de/nordrhein-westfalen/veranstaltungen/mondo-choro-jazz-forjando-o-caminho-kempen/"},
+ {d:"2026-05-09",until:"2026-11-22",title:"Comigo ninguém pode – Rosana Paulino & Adriana Varejão",city:"Venice",venue:{en:"Brazilian Pavilion, Venice Biennale (Giardini)",pt:"Pavilhão do Brasil, Bienal de Veneza (Giardini)",de:"Brasilianischer Pavillon, Biennale Venedig (Giardini)"},type:"Exhibition",added:"2026-11-18",
+  desc:{en:"Brazil's official pavilion at the 61st Venice Biennale – two of the country's leading artists on faith, nature and colonial memory. Last days!",pt:"O pavilhão oficial do Brasil na 61ª Bienal de Veneza – duas das maiores artistas do país sobre fé, natureza e memória colonial. Últimos dias!",de:"Brasiliens offizieller Pavillon auf der 61. Biennale Venedig – zwei der wichtigsten Künstlerinnen des Landes über Glauben, Natur und koloniale Erinnerung. Nur noch wenige Tage!"},
+  url:"https://www.e-flux.com/announcements/6787239/bienal.org.br"},
+ {d:"2026-03-29",until:"2026-11-22",title:"Paulo Nazareth – Algebra",city:"Venice",venue:"Punta della Dogana (Pinault Collection)",type:"Exhibition",added:"2026-11-18",
+  desc:{en:"Walks, performances and objects by the artist from Minas Gerais, tracing how colonial maps and racism shaped modern landscapes.",pt:"Caminhadas, performances e objetos do artista mineiro, que mostram como mapas coloniais e o racismo moldaram as paisagens modernas.",de:"Wanderungen, Performances und Objekte des Künstlers aus Minas Gerais – darüber, wie koloniale Kartografie und Rassismus moderne Landschaften geprägt haben."},
+  url:"https://www.pinaultcollection.com/palazzograssi/en"},
+ {d:"2026-10-02",until:"2026-11-27",title:"Jandyra Waters – A Life in Painting",city:"London",venue:"Cecilia Brunson Projects",type:"Exhibition",added:"2026-11-18",
+  desc:{en:"First London solo show for the Brazilian painter of geometric abstraction (1921–2025).",pt:"Primeira individual em Londres da pintora brasileira da abstração geométrica (1921–2025).",de:"Erste Londoner Einzelausstellung der brasilianischen Malerin geometrischer Abstraktion (1921–2025)."},
+  url:"https://sophiesuartadvisory.substack.com/p/frieze-week-2026-brazilian-art-in"},
+ {d:"2026-10-12",until:"2026-12-12",title:"Mira Schendel – In Transit",city:"London",venue:"Luxembourg + Co., Savile Row",type:"Exhibition",added:"2026-11-18",
+  desc:{en:"The experimental side of one of Brazil's great modernists, organised with her estate and Gomide&Co.",pt:"O lado experimental de uma das grandes modernistas brasileiras, em parceria com o espólio da artista e a Gomide&Co.",de:"Die experimentelle Seite einer der großen Modernistinnen Brasiliens, in Zusammenarbeit mit ihrem Nachlass und Gomide&Co."},
+  url:"https://sophiesuartadvisory.substack.com/p/frieze-week-2026-brazilian-art-in"},
+ {d:"2026-10-21",until:"2027-02-14",title:"Sonia Gomes – Wild Heart (Cœur sauvage)",city:"Paris",venue:"Palais de Tokyo",type:"Exhibition",added:"2026-11-18",
+  price:{en:"€13 (reduced €9, under‑18 free)",pt:"€13 (meia €9, menores de 18 grátis)",de:"13 € (ermäßigt 9 €, unter 18 frei)"},
+  desc:{en:"Textile sculptures made from fabrics, ropes and found objects by the artist from Minas Gerais, rooted in Afro‑Brazilian heritage.",pt:"Esculturas têxteis de tecidos, cordas e objetos encontrados da artista mineira, enraizadas na herança afro‑brasileira.",de:"Textilskulpturen aus Stoffen, Seilen und Fundstücken der Künstlerin aus Minas Gerais, verwurzelt im afrobrasilianischen Erbe."},
+  url:"https://palaisdetokyo.com/en/exposition/wild-heart/"},
+ {d:"2026-10-02",until:"2027-05-02",title:"Rafael Pavarotti, photographe",city:"Paris",venue:"Musée des Arts décoratifs",type:"Exhibition",added:"2026-11-18",
+  desc:{en:"First major French retrospective of the Brazilian fashion photographer.",pt:"Primeira grande retrospectiva na França do fotógrafo de moda brasileiro.",de:"Erste große Retrospektive des brasilianischen Modefotografen in Frankreich."},
+  url:"https://magazine-acumen.com/en/photography/rafael-pavarotti-first-retrospective-decorative-arts-museum/"},
+ {d:"2026-11-04",until:"2027-03-04",title:"“Anunciação”",city:"Lisbon",venue:"Convento da Graça",type:"Exhibition",added:"2026-11-18",
+  desc:{en:"Group show of 20+ artists across the historic convent, with a strong Brazilian presence – incl. Paulo Pasta and José Spaniol.",pt:"Coletiva com mais de 20 artistas em vários espaços do convento histórico, com forte presença brasileira – entre eles Paulo Pasta e José Spaniol.",de:"Gruppenausstellung mit über 20 Künstler:innen im historischen Kloster, mit starker brasilianischer Beteiligung – u. a. Paulo Pasta und José Spaniol."},
+  url:"https://dnbrasil.dn.pt/exposio-rene-artistas-brasileiros-e-internacionais-no-convento-da-graa-em-lisboa"},
+ {d:"2026-09-27",until:"2027-07-18",title:"Anatomy of Presence – Vivian Caccuri, Lucia Koch & Henrique Oliveira",city:"Sindelfingen",venue:"Schauwerk Sindelfingen",type:"Exhibition",added:"2026-11-18",
+  desc:{en:"Three Brazilian artists fill more than 3,000 m² with immersive installations of sound, light and organic forms (near Stuttgart).",pt:"Três artistas brasileiros ocupam mais de 3.000 m² com instalações imersivas de som, luz e formas orgânicas (perto de Stuttgart).",de:"Drei brasilianische Künstler:innen bespielen über 3.000 m² mit immersiven Installationen aus Klang, Licht und organischen Formen (bei Stuttgart)."},
+  url:"https://en.ilsole24ore.com/art/at-the-schauwerk-three-brazilian-artists-play-with-the-senses-in-an-immersive-work-AJoplGOB"},
+ {d:"2027-03-12",title:{en:"Ana Carolina – 25 Years",pt:"Ana Carolina – 25 Anos",de:"Ana Carolina – 25 Jahre"},city:"Lisbon",venue:"Coliseu dos Recreios",type:"Concert",added:"2026-11-19",
+  desc:{en:"One of MPB's best‑loved voices celebrates 25 years of her career with hits from across her songbook.",pt:"Uma das vozes mais queridas da MPB celebra 25 anos de carreira com sucessos de toda a sua trajetória.",de:"Eine der beliebtesten Stimmen der MPB feiert 25 Jahre Karriere mit Hits aus ihrem gesamten Repertoire."},
+  url:"https://dnbrasil.dn.pt/cultura-dn-brasil/ana-carolina-inclui-portugal-na-turn-de-25-anos"},
+ {d:"2027-03-13",title:{en:"Ana Carolina – 25 Years",pt:"Ana Carolina – 25 Anos",de:"Ana Carolina – 25 Jahre"},city:"Porto",venue:"Coliseu do Porto Ageas",type:"Concert",added:"2026-11-19",
+  desc:{en:"Porto date of the MPB singer's 25th‑anniversary tour.",pt:"Data no Porto da turnê de 25 anos de carreira da cantora.",de:"Porto‑Termin der Jubiläumstour der MPB‑Sängerin."},
+  url:"https://dnbrasil.dn.pt/cultura-dn-brasil/ana-carolina-inclui-portugal-na-turn-de-25-anos"},
+ {d:"2027-04-07",t:"20:30",title:"Leo Middea",city:"Nürnberg",venue:"Z‑Bau",type:"Concert",added:"2026-11-19",
+  desc:{en:"Rio‑born, Lisbon‑based singer‑songwriter mixing MPB, samba and folk, now touring with a full band.",pt:"Cantor e compositor carioca radicado em Lisboa, misturando MPB, samba e folk, agora em turnê com banda completa.",de:"In Rio geborener, in Lissabon lebender Singer‑Songwriter zwischen MPB, Samba und Folk – jetzt mit kompletter Band auf Tour."},
+  url:"https://shotgun.live/events/leo-middea-z-bau-nurnberg"},
+ {d:"2027-04-17",until:"2027-09-19",title:"Ernesto Neto",city:"Rotterdam",venue:{en:"Depot Boijmans Van Beuningen",pt:"Depot Boijmans Van Beuningen",de:"Depot Boijmans Van Beuningen"},type:"Exhibition",hot:true,added:"2026-11-19",
+  desc:{en:"The Rio artist's soft, scented, walk‑in sculptures of crochet and fabric invite you to touch and linger – about 2.5 h from Cologne.",pt:"As esculturas macias, perfumadas e penetráveis de crochê e tecido do artista carioca convidam a tocar e ficar – a cerca de 2h30 de Colônia.",de:"Die weichen, duftenden, begehbaren Skulpturen aus Häkelwerk und Stoff des Künstlers aus Rio laden zum Berühren und Verweilen ein – rund 2,5 Std. von Köln."},
+  url:"https://www.boijmans.nl/en/exhibitions/ernestoneto"},
+ {d:"2026-12-04",until:"2027-03-29",title:{en:"Vanguardistas – 100 Years of Latin American Women Artists",pt:"Vanguardistas – 100 anos de artistas latino‑americanas",de:"Vanguardistas – 100 Jahre lateinamerikanische Künstlerinnen"},city:"Bonn",venue:"Bundeskunsthalle",type:"Exhibition",added:"2026-11-20",
+  desc:{en:"Big survey of Latin American women artists with Brazilian icons Tarsila do Amaral, Lygia Clark and Djanira, plus loans from Pinacoteca and MASP – an easy 25‑minute trip from Cologne.",pt:"Grande panorama de artistas latino‑americanas com ícones brasileiras como Tarsila do Amaral, Lygia Clark e Djanira, além de empréstimos da Pinacoteca e do MASP – a só 25 minutos de Colônia.",de:"Große Überblicksschau lateinamerikanischer Künstlerinnen mit brasilianischen Ikonen wie Tarsila do Amaral, Lygia Clark und Djanira sowie Leihgaben von Pinacoteca und MASP – nur 25 Minuten von Köln."},
+  url:"https://www.bundeskunsthalle.de/en/vanguardistas"},
+ {d:"2026-11-18",until:"2027-02-13",title:{en:"Aleijadinho – Master of the Brazilian Baroque",pt:"Aleijadinho – Mestre do barroco brasileiro",de:"Aleijadinho – Meister des brasilianischen Barock"},city:"Rome",venue:{en:"Vatican Museums, Borgia Tower rooms",pt:"Museus Vaticanos, salas da Torre Borgia",de:"Vatikanische Museen, Räume des Borgia‑Turms"},type:"Exhibition",added:"2026-11-20",
+  price:{en:"Included in the Museums ticket",pt:"Incluído no ingresso dos Museus",de:"Im Museumsticket enthalten"},
+  desc:{en:"Works by Antônio Francisco Lisboa, the 18th‑century genius of Minas Gerais baroque, shown at the Vatican.",pt:"Obras de Antônio Francisco Lisboa, o gênio do barroco mineiro do século XVIII, expostas no Vaticano.",de:"Werke von Antônio Francisco Lisboa, dem Genie des Barock in Minas Gerais im 18. Jahrhundert, im Vatikan."},
+  url:"https://www.museivaticani.va/content/museivaticani/en/eventi-e-novita/iniziative/mostre/2026/aleijadinho-maestro-barocco-brasiliano.html"},
+];
+/* ====================== DATA-END ====================== */
+
+const REGULARS=[
+ {name:"Roda de Samba do Alemão",url:"https://rodadesambadoalemao.com/",link:"rodadesambadoalemao.com",
+  text:{en:"Cologne's samba band, playing samba de raiz, pagode and MPB at YUCA Club and Club Bahnhof Ehrenfeld (CBE) every few weeks.",pt:"A banda de samba de Colônia, com samba de raiz, pagode e MPB no YUCA Club e no Club Bahnhof Ehrenfeld (CBE) a cada poucas semanas.",de:"Kölns Sambaband mit Samba de Raiz, Pagode und MPB – alle paar Wochen im YUCA Club und im Club Bahnhof Ehrenfeld (CBE)."}},
+ {name:"Forró de Colônia e.V.",url:"https://rausgegangen.de/en/events/forro-party-mit-coisa-de-ze-live-0/",link:{en:"past event",pt:"evento anterior",de:"früheres Event"},
+  text:{en:"Association running forró parties and beginner classes, often at the Lutherkirche Südstadt.",pt:"Associação que organiza festas de forró e aulas para iniciantes, muitas vezes na Lutherkirche Südstadt.",de:"Verein, der Forró‑Partys und Einsteigerkurse veranstaltet, oft in der Lutherkirche Südstadt."}},
+ {name:"Vozes do Brasil",
+  text:{en:"Cologne choir singing Brazilian music for 18+ years (directed by Jean Kleeb), concerts at the Lutherkirche Südstadt.",pt:"Coral de Colônia que canta música brasileira há mais de 18 anos (regência de Jean Kleeb), com concertos na Lutherkirche Südstadt.",de:"Kölner Chor, der seit über 18 Jahren brasilianische Musik singt (Leitung: Jean Kleeb), Konzerte in der Lutherkirche Südstadt."}},
+ {name:"Brasilonia",url:"http://brasilonia.koelnrio.de/",link:"brasilonia.koelnrio.de",
+  text:{en:"Summer festival of Brazilian live music at Odonien, run by the Köln‑Rio city‑partnership association (last held 7 June 2026).",pt:"Festival de verão de música brasileira ao vivo no Odonien, organizado pela associação de cidades‑irmãs Colônia‑Rio (última edição em 7 de junho de 2026).",de:"Sommerfestival mit brasilianischer Livemusik im Odonien, veranstaltet vom Köln‑Rio‑Städtepartnerschaftsverein (zuletzt am 7. Juni 2026)."}},
+];
+const SOURCES=[
+ {name:"Bossa FM",url:"https://bossafm.com/",link:"bossafm.com",
+  text:{en:"Berlin-based promoter behind most Brazilian tours in Germany, Ireland & beyond.",pt:"Produtora de Berlim por trás da maioria das turnês brasileiras na Alemanha, Irlanda e além.",de:"Berliner Veranstalter hinter den meisten brasilianischen Tourneen in Deutschland, Irland und darüber hinaus."}},
+ {name:"Rausgegangen Köln",url:"https://rausgegangen.de/",link:"rausgegangen.de",
+  text:{en:"Search “Brasil”, “samba” or “forró”.",pt:"Busque por “Brasil”, “samba” ou “forró”.",de:"Nach „Brasil“, „Samba“ oder „Forró“ suchen."}},
+ {name:{en:"Cologne venues",pt:"Casas de show em Colônia",de:"Kölner Spielstätten"},
+  html:'<a href="https://o-ton.koeln/">o-ton</a>, <a href="https://www.loftkoeln.de/">Loft</a>, <a href="https://stadtgarten.de/">Stadtgarten</a>, <a href="https://www.koelner-philharmonie.de/">Kölner Philharmonie</a>',
+  text:{en:"often book Brazilian artists:",pt:"recebem artistas brasileiros com frequência:",de:"buchen häufig brasilianische Künstler:"}},
+ {name:"Köln‑Rio Städtepartnerschaftsverein",url:"https://www.koelnrio.de/",link:"koelnrio.de",
+  text:{en:"City partnership association with Rio de Janeiro.",pt:"Associação de cidades‑irmãs Colônia–Rio de Janeiro.",de:"Städtepartnerschaftsverein mit Rio de Janeiro."}},
+ {name:"DN Brasil",url:"https://dnbrasil.dn.pt/",link:"dnbrasil.dn.pt",
+  text:{en:"Portuguese paper covering Brazilian shows and theatre in Portugal.",pt:"Seção do Diário de Notícias sobre shows e teatro brasileiros em Portugal.",de:"Portugiesische Zeitung über brasilianische Konzerte und Theater in Portugal."}},
+];
+
+const T={
+ en:{eyebrow:"Music · Theatre · Art · Party — from Cologne",intro:"Brazilian concerts, shows, parties and art exhibitions in Cologne, across Germany and around Europe.",
+  where:"Where",near:"Near Cologne",germany:"Germany",allEurope:"All Europe",what:"What",everything:"Everything",concerts:"Concerts",parties:"Parties",theatre:"Theatre",exhibitions:"Exhibitions",
+  search:"Search artist, city, venue…",newsTitle:"What's new · <em>just announced</em>",checked:"Last checked for new dates:",
+  tracked:"Tracked since",newWeek:"New this week ·",announced:"Announced",seeTimeline:"See in timeline ↓",source:"Source ↗",
+  older:"Show older announcements",fewer:"Show fewer",ev1:"event",evN:"events",
+  tConcert:"Concert",tParty:"Party",tTheatre:"Theatre",tExhibition:"Exhibition",untilL:"until",onNow:"On now",inKoeln:"In Cologne",km:"~{n} km from Cologne",top:"Top pick",newAdded:"NEW · added",tickets:"Tickets & info ↗",
+  empty:"Nothing matches yet — try “All Europe”, or check the venues listed below for new dates.",
+  sUp:"upcoming dates",sNear:"near Cologne",sDe:"in Germany",sCities:"cities",
+  legNear:"within ~250 km of Cologne (straight line)",legTop:"editor's choice: big name, easy to reach",legNew:"added in the last 30 days",
+  regularsTitle:"Regular Brazilian life in Cologne",sourcesTitle:"Where new dates appear first",
+  footer:"First compiled 18 November 2026 and checked weekly for new announcements, from promoter, venue and ticketing pages. Dates and prices change: always confirm on the linked page before travelling. Distances are straight‑line from Cologne.",
+  docTitle:"Brasil ao Vivo – Brazilian concerts & shows from Cologne"},
+ pt:{eyebrow:"Música · Teatro · Arte · Festa — a partir de Colônia",intro:"Shows, espetáculos, festas e exposições brasileiras em Colônia, pela Alemanha e por toda a Europa.",
+  where:"Onde",near:"Perto de Colônia",germany:"Alemanha",allEurope:"Toda a Europa",what:"O quê",everything:"Tudo",concerts:"Shows",parties:"Festas",theatre:"Teatro",exhibitions:"Exposições",
+  search:"Buscar artista, cidade, local…",newsTitle:"Novidades · <em>recém‑anunciados</em>",checked:"Última verificação de novas datas:",
+  tracked:"Na agenda desde",newWeek:"Novo esta semana ·",announced:"Anunciado em",seeTimeline:"Ver na agenda ↓",source:"Fonte ↗",
+  older:"Mostrar anúncios anteriores",fewer:"Mostrar menos",ev1:"evento",evN:"eventos",
+  tConcert:"Show",tParty:"Festa",tTheatre:"Teatro",tExhibition:"Exposição",untilL:"até",onNow:"Em cartaz",inKoeln:"Em Colônia",km:"~{n} km de Colônia",top:"Destaque",newAdded:"NOVO · adicionado em",tickets:"Ingressos e info ↗",
+  empty:"Nada encontrado — experimente “Toda a Europa” ou confira as casas listadas abaixo.",
+  sUp:"próximas datas",sNear:"perto de Colônia",sDe:"na Alemanha",sCities:"cidades",
+  legNear:"a até ~250 km de Colônia (em linha reta)",legTop:"escolha da editora: grande nome, fácil de chegar",legNew:"adicionado nos últimos 30 dias",
+  regularsTitle:"A vida brasileira em Colônia",sourcesTitle:"Onde as novas datas aparecem primeiro",
+  footer:"Compilado em 18 de novembro de 2026 e verificado semanalmente a partir de páginas de produtoras, casas de show e venda de ingressos. Datas e preços podem mudar: confirme sempre na página indicada antes de viajar. Distâncias em linha reta a partir de Colônia.",
+  docTitle:"Brasil ao Vivo – shows e espetáculos brasileiros a partir de Colônia"},
+ de:{eyebrow:"Musik · Theater · Kunst · Party — ab Köln",intro:"Brasilianische Konzerte, Shows, Partys und Kunstausstellungen in Köln, in ganz Deutschland und in Europa.",
+  where:"Wo",near:"Nahe Köln",germany:"Deutschland",allEurope:"Ganz Europa",what:"Was",everything:"Alles",concerts:"Konzerte",parties:"Partys",theatre:"Theater",exhibitions:"Ausstellungen",
+  search:"Künstler, Stadt, Ort suchen…",newsTitle:"Neuigkeiten · <em>frisch angekündigt</em>",checked:"Zuletzt auf neue Termine geprüft:",
+  tracked:"Gelistet seit",newWeek:"Neu diese Woche ·",announced:"Angekündigt am",seeTimeline:"In der Timeline ansehen ↓",source:"Quelle ↗",
+  older:"Ältere Meldungen anzeigen",fewer:"Weniger anzeigen",ev1:"Termin",evN:"Termine",
+  tConcert:"Konzert",tParty:"Party",tTheatre:"Theater",tExhibition:"Ausstellung",untilL:"bis",onNow:"Läuft",inKoeln:"In Köln",km:"~{n} km von Köln",top:"Tipp",newAdded:"NEU · hinzugefügt am",tickets:"Tickets & Infos ↗",
+  empty:"Keine Treffer — versuch „Ganz Europa“ oder schau bei den unten genannten Spielstätten nach neuen Terminen.",
+  sUp:"kommende Termine",sNear:"nahe Köln",sDe:"in Deutschland",sCities:"Städte",
+  legNear:"im Umkreis von ~250 km um Köln (Luftlinie)",legTop:"Redaktionstipp: großer Name, gut erreichbar",legNew:"in den letzten 30 Tagen hinzugefügt",
+  regularsTitle:"Brasilianisches Leben in Köln",sourcesTitle:"Wo neue Termine zuerst erscheinen",
+  footer:"Erstellt am 18. November 2026 und wöchentlich auf neue Ankündigungen geprüft – auf Basis von Veranstalter‑, Spielstätten‑ und Ticketseiten. Termine und Preise können sich ändern: Bitte vor der Anreise immer auf der verlinkten Seite prüfen. Entfernungen in Luftlinie ab Köln.",
+  docTitle:"Brasil ao Vivo – brasilianische Konzerte & Shows ab Köln"}
+};
+const LOCALE={en:"en-GB",pt:"pt-BR",de:"de-DE"};
+
+let lang="en";
+try{const s=localStorage.getItem("bav-lang");if(T[s])lang=s;}catch(e){}
+const h=(location.hash||"").slice(1); if(T[h]) lang=h;
+
+const L=x=>x==null?"":(typeof x==="object"?(x[lang]||x.en||""):x);
+const t=k=>T[lang][k]??T.en[k];
+const cityName=c=>(CITY_NAMES[c]&&CITY_NAMES[c][lang])||c;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=o=>new Intl.DateTimeFormat(LOCALE[lang],o);
+
+function km(city){
+  const [a,b]=C[city]||KOELN, R=6371, toR=x=>x*Math.PI/180;
+  const dLat=toR(a-KOELN[0]), dLon=toR(b-KOELN[1]);
+  const q=Math.sin(dLat/2)**2+Math.cos(toR(KOELN[0]))*Math.cos(toR(a))*Math.sin(dLon/2)**2;
+  return Math.round(2*R*Math.asin(Math.sqrt(q)));
+}
+const iso=d=>{const z=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate());};
+const TODAY=iso(new Date());
+const D=s=>new Date(s+"T12:00:00");
+const daysAgo=s=>Math.round((D(TODAY)-D(s))/864e5);
+EVENTS.forEach(e=>{
+  e.km=km(e.city);e.near=e.km<=250;e.de=DE.has(e.city);
+  e.end=e.until||e.d; e.running=!!e.until&&e.d<=TODAY; e.sk=e.running?TODAY:e.d;
+  e.key=e.d+"|"+e.city; e.id="ev-"+(e.key+"-"+L.call(null,e.title)).toLowerCase().replace(/[^a-z0-9]+/g,"-");
+  e.isNew=!!e.added && e.added>META.launch && daysAgo(e.added)<=30;
+});
+
+let region="all", type="all", q="", showAllNews=false;
+try{const r=localStorage.getItem("bav-region");if(r)region=r;const ty=localStorage.getItem("bav-type");if(ty)type=ty;}catch(e){}
+
+function applyStatic(){
+  document.documentElement.lang=lang;
+  document.title=t("docTitle");
+  document.querySelectorAll("[data-t]").forEach(el=>{el.innerHTML=t(el.dataset.t);});
+  document.getElementById("q").placeholder=t("search");
+  document.querySelectorAll(".langs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang));
+  document.querySelectorAll("#regionGroup .chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.region===region));
+  document.querySelectorAll("#typeGroup .chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.type===type));
+  const li=x=>`<li><b>${esc(L(x.name))}</b> — ${esc(L(x.text))}${x.html?" "+x.html:""}${x.url?` <a href="${x.url}" target="_blank" rel="noopener">${esc(L(x.link))}</a>`:""}</li>`;
+  document.getElementById("regulars").innerHTML=REGULARS.map(li).join("");
+}
+
+function stats(){
+  const up=EVENTS.filter(e=>e.end>=TODAY);
+  const near=up.filter(e=>e.near).length, de=up.filter(e=>e.de).length;
+  const cities=new Set(up.map(e=>e.city)).size;
+  document.getElementById("stats").innerHTML=`<div><b>${up.length}</b>${t("sUp")}</div><div><b>${near}</b>${t("sNear")}</div><div><b>${de}</b>${t("sDe")}</div><div><b>${cities}</b>${t("sCities")}</div>`;
+}
+
+const txtAll=v=>typeof v==="object"&&v?Object.values(v).join(" "):(v||"");
+function match(e){
+  if(e.end<TODAY) return false;
+  if(region==="near"&&!e.near) return false;
+  if(region==="de"&&!e.de) return false;
+  if(type!=="all"&&e.type!==type) return false;
+  if(q){const hay=[txtAll(e.title),e.city,cityName(e.city),txtAll(e.venue),txtAll(e.desc)].join(" ").toLowerCase(); if(!hay.includes(q)) return false;}
+  return true;
+}
+function renderFeed(){
+  const all=[...NEWS].sort((a,b)=>b.date.localeCompare(a.date));
+  const filtering=region!=="all"||type!=="all"||!!q;
+  const sorted=filtering?all.filter(n=>(n.refs||[]).some(r=>EVENTS.some(e=>e.key===r&&match(e)))||(!!q&&region==="all"&&type==="all"&&(txtAll(n.headline)+" "+txtAll(n.text)).toLowerCase().includes(q))):all;
+  document.querySelector("section.news").hidden=!sorted.length;
+  const shown=showAllNews?sorted:sorted.slice(0,6);
+  const fDM=fmt({day:"numeric",month:"short"});
+  document.getElementById("feed").innerHTML=shown.map(n=>{
+    const d=D(n.date);
+    const label=n.date===META.launch?t("tracked")+" "+fDM.format(d):(daysAgo(n.date)<=7?t("newWeek")+" ":t("announced")+" ")+fDM.format(d);
+    const ref=(n.refs||[]).map(r=>EVENTS.find(e=>e.key===r&&e.end>=TODAY)).find(Boolean);
+    const fresh=n.date>META.launch&&daysAgo(n.date)<=7;
+    return `<li class="item"><div><h4>${fresh?`<span class="tag new" title="${esc(label)}">${t("newAdded").split("·")[0].trim()}</span> `:""}${esc(L(n.headline))}</h4><p>${esc(L(n.text))}</p></div>
+      <div class="links">${ref?`<button data-jump="${ref.id}">${t("seeTimeline")}</button>`:""}${n.url?`<a href="${n.url}" target="_blank" rel="noopener">${t("source")}</a>`:""}</div></li>`;
+  }).join("");
+  const more=document.getElementById("moreNews");
+  more.hidden=sorted.length<=6; more.textContent=showAllNews?t("fewer"):t("older")+" ("+(sorted.length-6)+")";
+  document.getElementById("checked").textContent=t("checked")+" "+fmt({day:"numeric",month:"short",year:"numeric"}).format(D(META.lastChecked));
+}
+
+function render(){
+  const list=document.getElementById("list");
+  const items=EVENTS.filter(e=>{
+    if(e.end<TODAY) return false;
+    if(region==="near"&&!e.near) return false;
+    if(region==="de"&&!e.de) return false;
+    if(type!=="all"&&e.type!==type) return false;
+    if(q){
+      const txt=v=>typeof v==="object"&&v?Object.values(v).join(" "):(v||"");
+      const hay=[txt(e.title),e.city,cityName(e.city),txt(e.venue),txt(e.desc)].join(" ").toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  }).sort((a,b)=>a.sk.localeCompare(b.sk)||(a.running&&b.running?a.end.localeCompare(b.end):a.d.localeCompare(b.d)));
+  if(!items.length){list.innerHTML=`<div class="empty">${t("empty")}</div>`;return;}
+  const fM=fmt({month:"long",year:"numeric"}), fS=fmt({month:"short"}), fW=fmt({weekday:"short"}), fDM=fmt({day:"numeric",month:"short"});
+  const typeLabel={Concert:t("tConcert"),Party:t("tParty"),Theatre:t("tTheatre"),Exhibition:t("tExhibition")};
+  let html="",cur="";
+  for(const e of items){
+    const dt=D(e.running?e.until:e.d);
+    const m=fM.format(D(e.sk));
+    if(m!==cur){cur=m;const n=items.filter(x=>fM.format(D(x.sk))===m).length;
+      html+=`<h2 class="month">${m.charAt(0).toUpperCase()+m.slice(1)}<small>${n} ${n>1?t("evN"):t("ev1")}</small></h2>`;}
+    html+=`<article class="ev${e.near?" near":""}" id="${e.id}">
+      <div class="date${e.running?" run":""}">${e.running?`<div class="w">${t("untilL")}</div>`:""}<div class="m">${fS.format(dt).replace(".","")}</div><div class="d">${dt.getDate()}</div>${e.running?"":`<div class="w">${fW.format(dt).replace(".","")}${e.t?" · "+e.t:""}</div>`}</div>
+      <div>
+        <h3>${esc(L(e.title))}</h3>
+        <div class="where"><b>${esc(cityName(e.city))}</b> · ${esc(L(e.venue))}${e.price?" · "+esc(L(e.price)):""}${e.until?" · "+fDM.format(D(e.d))+" – "+fmt({day:"numeric",month:"short",year:"numeric"}).format(D(e.until)):""}</div>
+        <p class="desc">${esc(L(e.desc))}</p>
+        <div class="tags">${e.isNew?`<span class="tag new">${t("newAdded")} ${fDM.format(D(e.added))}</span>`:""}<span class="tag type-${e.type}">${typeLabel[e.type]}</span>${e.running?`<span class="tag on">${t("onNow")}</span>`:""}<span class="tag km">${e.city==="Köln"?t("inKoeln"):t("km").replace("{n}",e.km)}</span>${e.hot?`<span class="tag top">${t("top")}</span>`:""}</div>
+      </div>
+      <a class="go" href="${e.url}" target="_blank" rel="noopener">${t("tickets")}</a>
+    </article>`;
+  }
+  list.innerHTML=html;
+}
+
+function renderAll(){applyStatic();stats();renderFeed();render();}
+
+document.querySelectorAll(".langs button").forEach(b=>b.addEventListener("click",()=>{
+  lang=b.dataset.lang; try{localStorage.setItem("bav-lang",lang)}catch(e){}
+  try{history.replaceState(null,"",lang==="en"?location.pathname+location.search:"#"+lang)}catch(e){}
+  renderAll();
+}));
+window.addEventListener("hashchange",()=>{const k=location.hash.slice(1);if(T[k]&&k!==lang){lang=k;renderAll();}});
+function bind(groupId,attr,setter){
+  document.querySelectorAll(`#${groupId} .chip`).forEach(b=>b.addEventListener("click",()=>{
+    setter(b.dataset[attr]); applyStatic(); render(); renderFeed();
+    try{localStorage.setItem("bav-"+attr,b.dataset[attr])}catch(e){}
+  }));
+}
+bind("regionGroup","region",v=>region=v);
+bind("typeGroup","type",v=>type=v);
+document.getElementById("q").addEventListener("input",e=>{q=e.target.value.trim().toLowerCase();render();renderFeed();});
+document.getElementById("moreNews").addEventListener("click",()=>{showAllNews=!showAllNews;renderFeed();});
+document.getElementById("feed").addEventListener("click",ev=>{
+  const b=ev.target.closest("[data-jump]"); if(!b) return;
+  let el=document.getElementById(b.dataset.jump);
+  if(!el){region="all";type="all";q="";document.getElementById("q").value="";applyStatic();render();renderFeed();el=document.getElementById(b.dataset.jump);}
+  if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}
+});
+renderAll();
+</script>
+</body>
+</html>
