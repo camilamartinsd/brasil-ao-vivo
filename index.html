@@ -600,7 +600,7 @@ function applyStatic(){
   document.getElementById("q").placeholder=t("search");
   document.querySelectorAll(".langs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang));
   document.querySelectorAll("#regionGroup .chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.region===region));
-  document.querySelectorAll("#typeGroup .chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.type===type));
+  document.querySelectorAll("#typeGroup .chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.type==="all"?type==="all":type!=="all"&&type.split(",").includes(x.dataset.type)));
   const li=x=>`<li><b>${esc(L(x.name))}</b> — ${esc(L(x.text))}${x.html?" "+x.html:""}${x.url?` <a href="${x.url}" target="_blank" rel="noopener">${esc(L(x.link))}</a>`:""}</li>`;
   document.getElementById("regulars").innerHTML=REGULARS.map(li).join("");
 }
@@ -617,7 +617,7 @@ function match(e){
   if(e.end<TODAY) return false;
   if(region==="near"&&!e.near) return false;
   if(region==="de"&&!e.de) return false;
-  if(type!=="all"&&e.type!==type) return false;
+  if(type!=="all"&&!type.split(",").includes(e.type)) return false;
   if(q){const hay=[txtAll(e.title),e.city,cityName(e.city),txtAll(e.venue),txtAll(e.desc)].join(" ").toLowerCase(); if(!hay.includes(q)) return false;}
   return true;
 }
@@ -648,7 +648,7 @@ function render(){
     if(e.end<TODAY) return false;
     if(region==="near"&&!e.near) return false;
     if(region==="de"&&!e.de) return false;
-    if(type!=="all"&&e.type!==type) return false;
+    if(type!=="all"&&!type.split(",").includes(e.type)) return false;
     if(q){
       const txt=v=>typeof v==="object"&&v?Object.values(v).join(" "):(v||"");
       const hay=[txt(e.title),e.city,cityName(e.city),txt(e.venue),txt(e.desc)].join(" ").toLowerCase();
@@ -689,12 +689,22 @@ document.querySelectorAll(".langs button").forEach(b=>b.addEventListener("click"
 window.addEventListener("hashchange",()=>{const k=location.hash.slice(1);if(T[k]&&k!==lang){lang=k;renderAll();}});
 function bind(groupId,attr,setter){
   document.querySelectorAll(`#${groupId} .chip`).forEach(b=>b.addEventListener("click",()=>{
-    setter(b.dataset[attr]); applyStatic(); render(); renderFeed();
-    try{localStorage.setItem("bav-"+attr,b.dataset[attr])}catch(e){}
+    const val=setter(b.dataset[attr]); applyStatic(); render(); renderFeed();
+    try{localStorage.setItem("bav-"+attr,val)}catch(e){}
   }));
 }
 bind("regionGroup","region",v=>region=v);
-bind("typeGroup","type",v=>type=v);
+// "What" allows several categories at once; "Everything" resets
+bind("typeGroup","type",v=>{
+  if(v==="all") type="all";
+  else{
+    const s=new Set(type==="all"?[]:type.split(","));
+    s.has(v)?s.delete(v):s.add(v);
+    const ALL=["Concert","Party","Theatre","Exhibition"];
+    type=(!s.size||ALL.every(x=>s.has(x)))?"all":[...s].join(",");
+  }
+  return type;
+});
 document.getElementById("q").addEventListener("input",e=>{q=e.target.value.trim().toLowerCase();render();renderFeed();});
 document.getElementById("moreNews").addEventListener("click",()=>{showAllNews=!showAllNews;renderFeed();});
 document.getElementById("feed").addEventListener("click",ev=>{
