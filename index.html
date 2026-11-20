@@ -114,6 +114,7 @@
   .install{position:absolute;top:18px;left:40px;z-index:2;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font:700 14px Manrope,sans-serif;color:#fff;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:10px 16px}
   .install:hover{background:rgba(0,0,0,.35)}
   .install svg{width:16px;height:16px}
+  #installHide{all:unset;display:block;margin-top:10px;color:var(--green);font-weight:700;font-size:13px;cursor:pointer}
   .install-tip{position:absolute;top:68px;left:40px;z-index:3;max-width:290px;background:#fff;color:var(--ink);font-size:14px;line-height:1.45;padding:12px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
   @media (max-width:720px){
     .install{left:24px;top:20px;padding:9px 14px;font-size:13px}
@@ -155,7 +156,7 @@
     <path d="M0 540 C240 610 430 650 600 700 H0Z" fill="#000000" opacity=".14"/>
   </svg>
   <button class="install" id="installBtn" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg><span data-t="install"></span></button>
-  <div class="install-tip" id="installTip" hidden data-t="iosTip"></div>
+  <div class="install-tip" id="installTip" hidden><span data-t="iosTip"></span><button type="button" id="installHide" data-t="installHide"></button></div>
   <div class="langs" role="group" aria-label="Language">
     <button data-lang="en" aria-pressed="true">EN</button>
     <button data-lang="pt" aria-pressed="false">PT</button>
@@ -526,7 +527,7 @@ const T={
   regularsTitle:"Regular Brazilian life in Cologne",sourcesTitle:"Where new dates appear first",
   footer:"First compiled 18 November 2026 and checked weekly for new announcements, from promoter, venue and ticketing pages. Dates and prices change: always confirm on the linked page before travelling. Distances are straight‑line from Cologne.",
   docTitle:"Brasil ao Vivo – Brazilian concerts & shows from Cologne",
-  install:"Install app",iosTip:"Tap the <b>Share</b> button in Safari, then <b>“Add to Home Screen”</b>."},
+  install:"Install app",installHide:"Already installed? Hide this button",iosTip:"Tap the <b>Share</b> button in Safari, then <b>“Add to Home Screen”</b>."},
  pt:{eyebrow:"Música · Teatro · Arte · Festa — a partir de Colônia",intro:"Shows, espetáculos, festas e exposições brasileiras em Colônia, pela Alemanha e por toda a Europa.",
   where:"Onde",near:"Perto de Colônia",germany:"Alemanha",allEurope:"Toda a Europa",what:"O quê",everything:"Tudo",concerts:"Shows",parties:"Festas",theatre:"Teatro",exhibitions:"Exposições",
   search:"Buscar artista, cidade, local…",newsTitle:"Novidades · <em>recém‑anunciados</em>",checked:"Última verificação de novas datas:",
@@ -539,7 +540,7 @@ const T={
   regularsTitle:"A vida brasileira em Colônia",sourcesTitle:"Onde as novas datas aparecem primeiro",
   footer:"Compilado em 18 de novembro de 2026 e verificado semanalmente a partir de páginas de produtoras, casas de show e venda de ingressos. Datas e preços podem mudar: confirme sempre na página indicada antes de viajar. Distâncias em linha reta a partir de Colônia.",
   docTitle:"Brasil ao Vivo – shows e espetáculos brasileiros a partir de Colônia",
-  install:"Instalar app",iosTip:"No Safari, toque em <b>Compartilhar</b> e depois em <b>“Adicionar à Tela de Início”</b>."},
+  install:"Instalar app",installHide:"Já instalou? Ocultar este botão",iosTip:"No Safari, toque em <b>Compartilhar</b> e depois em <b>“Adicionar à Tela de Início”</b>."},
  de:{eyebrow:"Musik · Theater · Kunst · Party — ab Köln",intro:"Brasilianische Konzerte, Shows, Partys und Kunstausstellungen in Köln, in ganz Deutschland und in Europa.",
   where:"Wo",near:"Nahe Köln",germany:"Deutschland",allEurope:"Ganz Europa",what:"Was",everything:"Alles",concerts:"Konzerte",parties:"Partys",theatre:"Theater",exhibitions:"Ausstellungen",
   search:"Künstler, Stadt, Ort suchen…",newsTitle:"Neuigkeiten · <em>frisch angekündigt</em>",checked:"Zuletzt auf neue Termine geprüft:",
@@ -552,7 +553,7 @@ const T={
   regularsTitle:"Brasilianisches Leben in Köln",sourcesTitle:"Wo neue Termine zuerst erscheinen",
   footer:"Erstellt am 18. November 2026 und wöchentlich auf neue Ankündigungen geprüft – auf Basis von Veranstalter‑, Spielstätten‑ und Ticketseiten. Termine und Preise können sich ändern: Bitte vor der Anreise immer auf der verlinkten Seite prüfen. Entfernungen in Luftlinie ab Köln.",
   docTitle:"Brasil ao Vivo – brasilianische Konzerte & Shows ab Köln",
-  install:"App installieren",iosTip:"Tippe in Safari auf <b>Teilen</b> und dann auf <b>„Zum Home-Bildschirm“</b>."}
+  install:"App installieren",installHide:"Schon installiert? Button ausblenden",iosTip:"Tippe in Safari auf <b>Teilen</b> und dann auf <b>„Zum Home-Bildschirm“</b>."}
 };
 const LOCALE={en:"en-GB",pt:"pt-BR",de:"de-DE"};
 
@@ -703,9 +704,12 @@ renderAll();
   let deferred=null;
   const standalone=()=>{try{return matchMedia("(display-mode: standalone)").matches||navigator.standalone===true}catch(e){return false}};
   const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
-  const show=()=>{if(!standalone()) ib.hidden=false;};
+  const KEY="bav-install-hidden";
+  const dismissed=()=>{try{return localStorage.getItem(KEY)==="1"}catch(e){return false}};
+  const show=()=>{if(!standalone()&&!dismissed()) ib.hidden=false;};
+  document.getElementById("installHide").addEventListener("click",()=>{try{localStorage.setItem(KEY,"1")}catch(e){} ib.hidden=true;tip.hidden=true;});
   window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;show();});
-  window.addEventListener("appinstalled",()=>{ib.hidden=true;tip.hidden=true;});
+  window.addEventListener("appinstalled",()=>{ib.hidden=true;tip.hidden=true;try{localStorage.setItem(KEY,"1")}catch(e){}});
   // On iPhone/iPad there is no install prompt: show the button with instructions, but only where the app files exist
   if(isIOS&&!standalone()){
     try{fetch("manifest.webmanifest",{method:"HEAD",cache:"no-store"}).then(r=>{if(r.ok) show();}).catch(()=>{});}catch(e){}
