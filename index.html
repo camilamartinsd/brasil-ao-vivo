@@ -118,7 +118,8 @@
   #installHide{all:unset;display:block;margin-top:10px;color:var(--green);font-weight:700;font-size:13px;cursor:pointer}
   .install-tip{position:absolute;top:68px;left:40px;z-index:3;max-width:290px;background:#fff;color:var(--ink);font-size:14px;line-height:1.45;padding:12px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
   @media (max-width:720px){
-    .install{left:24px;top:20px;padding:9px 14px;font-size:13px}
+    .install{left:20px;top:16px;padding:6px 11px;font-size:12px;gap:6px}
+    .install svg{width:13px;height:13px}
     .install-tip{left:24px;right:24px;top:70px}
     .controls .wrap{gap:8px;padding-top:10px;padding-bottom:10px}
     .group{flex-wrap:nowrap;overflow-x:auto;width:calc(100% + 24px);margin-right:-24px;padding-right:24px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
@@ -128,7 +129,9 @@
     input[type=search]{padding:7px 12px;font-size:16px}
     .news{padding-top:22px}
     .news-head h2{font-size:24px}
-    .item{padding:12px 14px}
+    .item{padding:11px 14px}
+    .item p{display:none}
+    .item .links{font-size:12.5px}
     .month{font-size:24px;margin:26px 0 10px}
     .ev{padding:14px;gap:12px}
     .date{padding:6px 2px}
@@ -138,9 +141,11 @@
     .ev{grid-template-columns:52px 1fr}
     .ev .go{grid-column:2;justify-self:start}
     section.info .wrap{grid-template-columns:1fr}
-    header .wrap{grid-template-columns:1fr;padding:64px 24px 32px;gap:16px}
+    header .wrap{grid-template-columns:1fr;padding:74px 24px 30px;gap:16px}
+    .eyebrow{font-size:12px;letter-spacing:.16em}
     header .flagwrap{display:none}
-    .langs{right:24px;top:20px}
+    .langs{right:20px;top:16px;padding:3px}
+    .langs button{font-size:12px;padding:5px 11px}
     .stats{display:grid;grid-template-columns:1fr 1fr}
     .stats div{padding:0 18px}
     .stats div:nth-child(odd){padding-left:0;border-left:0}
@@ -621,7 +626,8 @@ function renderFeed(){
   const filtering=region!=="all"||type!=="all"||!!q;
   const sorted=filtering?all.filter(n=>(n.refs||[]).some(r=>EVENTS.some(e=>e.key===r&&match(e)))||(!!q&&region==="all"&&type==="all"&&(txtAll(n.headline)+" "+txtAll(n.text)).toLowerCase().includes(q))):all;
   document.querySelector("section.news").hidden=!sorted.length;
-  const shown=showAllNews?sorted:sorted.slice(0,6);
+  const lim=(()=>{try{return matchMedia("(max-width:720px)").matches?3:6}catch(e){return 6}})();
+  const shown=showAllNews?sorted:sorted.slice(0,lim);
   const fDM=fmt({day:"numeric",month:"short"});
   document.getElementById("feed").innerHTML=shown.map(n=>{
     const d=D(n.date);
@@ -632,7 +638,7 @@ function renderFeed(){
       <div class="links">${ref?`<button data-jump="${ref.id}">${t("seeTimeline")}</button>`:""}${n.url?`<a href="${n.url}" target="_blank" rel="noopener">${t("source")}</a>`:""}</div></li>`;
   }).join("");
   const more=document.getElementById("moreNews");
-  more.hidden=sorted.length<=6; more.textContent=showAllNews?t("fewer"):t("older")+" ("+(sorted.length-6)+")";
+  more.hidden=sorted.length<=lim; more.textContent=showAllNews?t("fewer"):t("older")+" ("+(sorted.length-lim)+")";
   document.getElementById("checked").textContent=t("checked")+" "+fmt({day:"numeric",month:"short",year:"numeric"}).format(D(META.lastChecked));
 }
 
@@ -698,6 +704,7 @@ document.getElementById("feed").addEventListener("click",ev=>{
   if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}
 });
 renderAll();
+try{matchMedia("(max-width:720px)").addEventListener("change",()=>renderFeed());}catch(e){}
 
 /* ---- Installable app (PWA) ---- */
 (function(){
