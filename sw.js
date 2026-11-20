@@ -1,7 +1,7 @@
 // Brasil ao Vivo – service worker
 // Network first: always show the latest events when online,
 // fall back to the last saved copy when offline.
-const CACHE = 'bav-v1';
+const CACHE = 'bav-v2';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -22,8 +22,10 @@ self.addEventListener('fetch', e => {
   const url = new URL(req.url);
   const fonts = url.hostname.endsWith('googleapis.com') || url.hostname.endsWith('gstatic.com');
   if (url.origin !== self.location.origin && !fonts) return;
+  // Pages always ask the server for the newest version (no 10-minute browser cache)
+  const net = req.mode === 'navigate' ? fetch(req.url, { cache: 'no-cache', credentials: 'same-origin' }) : fetch(req);
   e.respondWith(
-    fetch(req)
+    net
       .then(res => {
         if (res.ok || res.type === 'opaque') {
           const copy = res.clone();
