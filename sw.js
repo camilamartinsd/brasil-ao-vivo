@@ -1,8 +1,9 @@
 // Brasil ao Vivo – service worker
 // Network first: always show the latest events when online,
 // fall back to the last saved copy when offline.
-const CACHE = 'bav-v2';
-const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
+const CACHE = 'bav-v3';
+const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png',
+  './fonts/dm-serif-display-latin-400-normal.woff2', './fonts/dm-serif-display-latin-400-italic.woff2', './fonts/manrope-latin-wght-normal.woff2'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
@@ -20,8 +21,7 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
-  const fonts = url.hostname.endsWith('googleapis.com') || url.hostname.endsWith('gstatic.com');
-  if (url.origin !== self.location.origin && !fonts) return;
+  if (url.origin !== self.location.origin) return; // only this site's own files
   // Pages always ask the server for the newest version (no 10-minute browser cache)
   const net = req.mode === 'navigate' ? fetch(req.url, { cache: 'no-cache', credentials: 'same-origin' }) : fetch(req);
   e.respondWith(

@@ -6,6 +6,7 @@
 <title>Brasil ao Vivo – Brazilian concerts &amp; shows from Cologne</title>
 <meta name="description" content="Brazilian concerts, shows, parties and art exhibitions in Cologne, across Germany and around Europe.">
 <meta name="theme-color" content="#08402e">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
@@ -13,10 +14,14 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Brasil ao Vivo">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* Fonts are served from this site (no requests to Google) */
+  @font-face{font-family:'DM Serif Display';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/dm-serif-display-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:'DM Serif Display';font-style:italic;font-weight:400;font-display:swap;src:url(fonts/dm-serif-display-latin-ext-400-italic.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:'Manrope';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/manrope-latin-ext-wght-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:'DM Serif Display';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/dm-serif-display-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:'DM Serif Display';font-style:italic;font-weight:400;font-display:swap;src:url(fonts/dm-serif-display-latin-400-italic.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:'Manrope';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/manrope-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
   :root{
     --bg:#fbf7ef; --ink:#1b1f1c; --muted:#5d645f; --line:#e6dfd0;
     --green:#0d6b4c; --green-d:#08402e; --sun:#f3b81b; --blue:#1f3f8f; --coral:#e2603f;
@@ -604,7 +609,7 @@ function applyStatic(){
   document.querySelectorAll(".langs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang));
   document.querySelectorAll("#regionGroup .chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.region===region));
   document.querySelectorAll("#typeGroup .chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.type==="all"?type==="all":type!=="all"&&type.split(",").includes(x.dataset.type)));
-  const li=x=>`<li><b>${esc(L(x.name))}</b> — ${esc(L(x.text))}${x.html?" "+x.html:""}${x.url?` <a href="${x.url}" target="_blank" rel="noopener">${esc(L(x.link))}</a>`:""}</li>`;
+  const li=x=>`<li><b>${esc(L(x.name))}</b> — ${esc(L(x.text))}${x.html?" "+x.html:""}${x.url?` <a href="${x.url}" target="_blank" rel="noopener noreferrer">${esc(L(x.link))}</a>`:""}</li>`;
   document.getElementById("regulars").innerHTML=REGULARS.map(li).join("");
 }
 
@@ -638,7 +643,7 @@ function renderFeed(){
     const ref=(n.refs||[]).map(r=>EVENTS.find(e=>e.key===r&&e.end>=TODAY)).find(Boolean);
     const fresh=n.date>META.launch&&daysAgo(n.date)<=7;
     return `<li class="item"><div><h4>${fresh?`<span class="tag new" title="${esc(label)}">${t("newAdded").split("·")[0].trim()}</span> `:""}${esc(L(n.headline))}</h4><p>${esc(L(n.text))}</p></div>
-      <div class="links">${ref?`<button data-jump="${ref.id}">${t("seeTimeline")}</button>`:""}${n.url?`<a href="${n.url}" target="_blank" rel="noopener">${t("source")}</a>`:""}</div></li>`;
+      <div class="links">${ref?`<button data-jump="${ref.id}">${t("seeTimeline")}</button>`:""}${n.url?`<a href="${n.url}" target="_blank" rel="noopener noreferrer">${t("source")}</a>`:""}</div></li>`;
   }).join("");
   const more=document.getElementById("moreNews");
   more.hidden=sorted.length<=lim; more.textContent=showAllNews?t("fewer"):t("older")+" ("+(sorted.length-lim)+")";
@@ -676,7 +681,7 @@ function render(){
         <p class="desc">${esc(L(e.desc))}</p>
         <div class="tags">${e.isNew?`<span class="tag new">${t("newAdded")} ${fDM.format(D(e.added))}</span>`:""}<span class="tag type-${e.type}">${typeLabel[e.type]}</span>${e.running?`<span class="tag on">${t("onNow")}</span>`:""}<span class="tag km">${e.city==="Köln"?t("inKoeln"):t("km").replace("{n}",e.km)}</span>${e.hot?`<span class="tag top">${t("top")}</span>`:""}</div>
       </div>
-      <a class="go" href="${e.url}" target="_blank" rel="noopener">${t("tickets")}</a>
+      <a class="go" href="${e.url}" target="_blank" rel="noopener noreferrer">${t("tickets")}</a>
     </article>`;
   }
   list.innerHTML=html;
