@@ -246,7 +246,7 @@ const C={ // city coordinates [lat,lon]
   "Lisbon":[38.72,-9.14],"Porto":[41.15,-8.61],"Barcelona":[41.39,2.17],"Rome":[41.90,12.50],
   "Hannover":[52.37,9.73],"Freiburg":[47.99,7.85],"Mannheim":[49.49,8.47],"Bottrop":[51.52,6.92],
   "Venice":[45.44,12.33],"Sindelfingen":[48.71,9.00],"Nürnberg":[49.45,11.08],"Rotterdam":[51.92,4.48],
-  "Bonn":[50.71,7.10]
+  "Bonn":[50.71,7.10],"Bassano del Grappa":[45.77,11.73],"Ovar":[40.86,-8.63],"Braga":[41.55,-8.42]
 };
 const DE=new Set(["Köln","Kempen","Bergkamen","Berlin","Hamburg","Frankfurt","München","Hannover","Freiburg","Mannheim","Bottrop","Sindelfingen","Nürnberg","Bonn"]);
 // Optional translated city names (key = city as used in EVENTS)
@@ -271,9 +271,25 @@ const CITY_NAMES={
    - NEWS: fields date (YYYY-MM-DD announced/added), headline, text, url,
      refs: ["YYYY-MM-DD|City", ...] linking to events in the timeline. Sorted newest first in code.
 */
-const META={launch:"2026-11-18",lastChecked:"2026-11-20"};
+const META={launch:"2026-11-18",lastChecked:"2026-11-23"};
 
 const NEWS=[
+ {date:"2026-11-23",
+  headline:{en:"Chico Chico continues his tour in Portugal",pt:"Chico Chico segue a turnê por Portugal",de:"Chico Chico setzt seine Tour in Portugal fort"},
+  text:{en:"After Berlin and Dublin, the Rio singer‑songwriter plays four Portuguese dates: Porto (30 Nov), Ovar (3 Dec), Lisbon's Casa Capitão (5 Dec) and Braga (7 Dec).",pt:"Depois de Berlim e Dublin, o cantor e compositor carioca faz quatro shows em Portugal: Porto (30/11), Ovar (3/12), Casa Capitão em Lisboa (5/12) e Braga (7/12).",de:"Nach Berlin und Dublin spielt der Singer‑Songwriter aus Rio vier Termine in Portugal: Porto (30. Nov.), Ovar (3. Dez.), Casa Capitão in Lissabon (5. Dez.) und Braga (7. Dez.)."},
+  url:"https://dnbrasil.dn.pt/primeira-turn-europeia-de-chico-chico-ter-quatro-shows-em-portugal",refs:["2026-11-30|Porto","2026-12-03|Ovar","2026-12-05|Lisbon","2026-12-07|Braga"]},
+ {date:"2026-11-23",
+  headline:{en:"Tasha & Tracie add Lisbon",pt:"Tasha & Tracie incluem Lisboa",de:"Tasha & Tracie spielen auch in Lissabon"},
+  text:{en:"Between Dublin and Berlin, the Brazilian trap duo plays Casa Capitão in Lisbon on 3 December; tickets from €15.50.",pt:"Entre Dublin e Berlim, a dupla de trap brasileiro se apresenta na Casa Capitão, em Lisboa, em 3 de dezembro; ingressos a partir de €15,50.",de:"Zwischen Dublin und Berlin tritt das brasilianische Trap‑Duo am 3. Dezember in der Casa Capitão in Lissabon auf; Tickets ab 15,50 €."},
+  url:"https://www.songkick.com/concerts/43276915-tasha-and-tracie-at-casa-capitao",refs:["2026-12-03|Lisbon"]},
+ {date:"2026-11-22",
+  headline:{en:"Leo Middea adds Amsterdam's Paradiso – his closest date to Cologne",pt:"Leo Middea inclui o Paradiso, em Amsterdã – a data mais próxima de Colônia",de:"Leo Middea spielt im Amsterdamer Paradiso – sein nächster Termin zu Köln"},
+  text:{en:"The Rio‑born singer‑songwriter plays the main hall of Paradiso on Tuesday 23 March 2027, about 2.5 hours from Cologne by train. Still no NRW date.",pt:"O cantor e compositor carioca se apresenta na sala principal do Paradiso na terça, 23 de março de 2027, a cerca de 2h30 de trem de Colônia. Ainda sem data na Renânia do Norte‑Vestfália.",de:"Der in Rio geborene Singer‑Songwriter spielt am Dienstag, 23. März 2027, im großen Saal des Paradiso – rund 2,5 Stunden mit dem Zug von Köln. Ein NRW‑Termin fehlt weiterhin."},
+  url:"https://www.paradiso.nl/en/program/leo-middea/2894261",refs:["2027-03-23|Amsterdam"]},
+ {date:"2026-11-21",
+  headline:{en:"Sebastião Salgado retrospective in Bassano del Grappa",pt:"Retrospectiva de Sebastião Salgado em Bassano del Grappa",de:"Sebastião‑Salgado‑Retrospektive in Bassano del Grappa"},
+  text:{en:"Italy's first show covering the Brazilian photographer's whole career – around 160 prints from the Maison Européenne de la Photographie – is on at the Museo Civico until 4 April 2027.",pt:"A primeira mostra na Itália dedicada a toda a carreira do fotógrafo brasileiro – cerca de 160 fotografias da Maison Européenne de la Photographie – fica em cartaz no Museo Civico até 4 de abril de 2027.",de:"Italiens erste Ausstellung über das gesamte Werk des brasilianischen Fotografen – rund 160 Abzüge aus der Maison Européenne de la Photographie – ist bis 4. April 2027 im Museo Civico zu sehen."},
+  url:"https://www.finestresullarte.info/en/exhibitions/bassano-del-grappa-hosts-the-first-italian-exhibition-dedicated-to-the-complete-works-of-sebastiao-salgado",refs:["2026-10-24|Bassano del Grappa"]},
  {date:"2026-11-20",
   headline:{en:"Tarsila do Amaral and Lygia Clark in Bonn: “Vanguardistas” opens 4 December",pt:"Tarsila do Amaral e Lygia Clark em Bonn: “Vanguardistas” abre em 4 de dezembro",de:"Tarsila do Amaral und Lygia Clark in Bonn: „Vanguardistas“ startet am 4. Dezember"},
   text:{en:"The Bundeskunsthalle's survey of 100 years of Latin American women artists includes Brazilian pioneers Tarsila do Amaral, Lygia Clark and Djanira, with loans from São Paulo's Pinacoteca and MASP – just 25 minutes from Cologne, until 29 March 2027.",pt:"A mostra da Bundeskunsthalle sobre 100 anos de artistas latino‑americanas inclui as pioneiras brasileiras Tarsila do Amaral, Lygia Clark e Djanira, com empréstimos da Pinacoteca e do MASP – a só 25 minutos de Colônia, até 29 de março de 2027.",de:"Die Schau der Bundeskunsthalle über 100 Jahre lateinamerikanischer Künstlerinnen zeigt auch die brasilianischen Pionierinnen Tarsila do Amaral, Lygia Clark und Djanira, mit Leihgaben von Pinacoteca und MASP aus São Paulo – nur 25 Minuten von Köln, bis 29. März 2027."},
@@ -501,6 +517,28 @@ const EVENTS=[
   price:{en:"Included in the Museums ticket",pt:"Incluído no ingresso dos Museus",de:"Im Museumsticket enthalten"},
   desc:{en:"Works by Antônio Francisco Lisboa, the 18th‑century genius of Minas Gerais baroque, shown at the Vatican.",pt:"Obras de Antônio Francisco Lisboa, o gênio do barroco mineiro do século XVIII, expostas no Vaticano.",de:"Werke von Antônio Francisco Lisboa, dem Genie des Barock in Minas Gerais im 18. Jahrhundert, im Vatikan."},
   url:"https://www.museivaticani.va/content/museivaticani/en/eventi-e-novita/iniziative/mostre/2026/aleijadinho-maestro-barocco-brasiliano.html"},
+ {d:"2026-10-24",until:"2027-04-04",title:{en:"Sebastião Salgado – Photographs from the MEP Collection, Paris",pt:"Sebastião Salgado – Fotografias da coleção da MEP, Paris",de:"Sebastião Salgado – Fotografien aus der Sammlung der MEP, Paris"},city:"Bassano del Grappa",venue:"Museo Civico di Bassano del Grappa",type:"Exhibition",added:"2026-11-21",
+  price:{en:"€13 (reduced €11)",pt:"€13 (meia €11)",de:"13 € (ermäßigt 11 €)"},
+  desc:{en:"First Italian survey of the late Brazilian photographer's entire career – around 160 photographs spanning his great series. Closed Tuesdays.",pt:"Primeiro panorama na Itália de toda a carreira do fotógrafo brasileiro – cerca de 160 fotografias que percorrem suas grandes séries. Fechado às terças.",de:"Erster italienischer Überblick über das gesamte Werk des verstorbenen brasilianischen Fotografen – rund 160 Fotografien aus seinen großen Serien. Dienstags geschlossen."},
+  url:"https://www.finestresullarte.info/en/exhibitions/bassano-del-grappa-hosts-the-first-italian-exhibition-dedicated-to-the-complete-works-of-sebastiao-salgado"},
+ {d:"2027-03-23",t:"20:30",title:"Leo Middea",city:"Amsterdam",venue:"Paradiso (Grote Zaal)",type:"Concert",added:"2026-11-22",
+  desc:{en:"Rio‑born, Lisbon‑based singer‑songwriter mixing MPB, samba and folk with his full band – the nearest tour date to Cologne (~2.5 h by train).",pt:"Cantor e compositor carioca radicado em Lisboa, misturando MPB, samba e folk, com banda completa – a data da turnê mais próxima de Colônia (~2h30 de trem).",de:"In Rio geborener, in Lissabon lebender Singer‑Songwriter zwischen MPB, Samba und Folk, mit kompletter Band – der nächste Tourtermin zu Köln (~2,5 Std. mit dem Zug)."},
+  url:"https://www.paradiso.nl/en/program/leo-middea/2894261"},
+ {d:"2026-11-30",title:"Chico Chico",city:"Porto",venue:"M.Ou.Co",type:"Concert",added:"2026-11-23",
+  desc:{en:"First stop of Chico Chico's first Portugal run – the Rio singer‑songwriter and son of Cássia Eller brings his new album.",pt:"Primeira parada da estreia de Chico Chico em Portugal – o cantor e compositor carioca, filho de Cássia Eller, apresenta o novo álbum.",de:"Erster Halt von Chico Chicos erster Portugal‑Tour – der Singer‑Songwriter aus Rio, Sohn von Cássia Eller, stellt sein neues Album vor."},
+  url:"https://dnbrasil.dn.pt/primeira-turn-europeia-de-chico-chico-ter-quatro-shows-em-portugal"},
+ {d:"2026-12-03",title:"Chico Chico",city:"Ovar",venue:{en:"Escola de Artes e Ofícios",pt:"Escola de Artes e Ofícios",de:"Escola de Artes e Ofícios"},type:"Concert",added:"2026-11-23",
+  desc:{en:"Intimate show south of Porto on the MPB singer's Portugal tour.",pt:"Show intimista ao sul do Porto na turnê portuguesa do cantor de MPB.",de:"Intimes Konzert südlich von Porto auf der Portugal‑Tour des MPB‑Sängers."},
+  url:"https://dnbrasil.dn.pt/primeira-turn-europeia-de-chico-chico-ter-quatro-shows-em-portugal"},
+ {d:"2026-12-03",t:"21:00",title:"Tasha & Tracie",city:"Lisbon",venue:"Casa Capitão",type:"Concert",price:{en:"from €15.50",pt:"a partir de €15,50",de:"ab 15,50 €"},added:"2026-11-23",
+  desc:{en:"The São Paulo twins of Brazilian trap and hip hop add a Lisbon date to their European run.",pt:"As gêmeas paulistanas do trap e do hip hop brasileiro incluem Lisboa na passagem pela Europa.",de:"Die Zwillinge aus São Paulo, Stars des brasilianischen Trap und Hip‑Hop, ergänzen ihre Europa‑Termine um Lissabon."},
+  url:"https://www.songkick.com/concerts/43276915-tasha-and-tracie-at-casa-capitao"},
+ {d:"2026-12-05",title:"Chico Chico",city:"Lisbon",venue:"Casa Capitão",type:"Concert",added:"2026-11-23",
+  desc:{en:"Lisbon date of Chico Chico's first Portugal tour – new MPB from Rio.",pt:"Data em Lisboa da primeira turnê de Chico Chico em Portugal – a nova MPB carioca.",de:"Lissabon‑Termin von Chico Chicos erster Portugal‑Tour – neue MPB aus Rio."},
+  url:"https://dnbrasil.dn.pt/primeira-turn-europeia-de-chico-chico-ter-quatro-shows-em-portugal"},
+ {d:"2026-12-07",title:"Chico Chico",city:"Braga",venue:"Espaço Vita",type:"Concert",added:"2026-11-23",
+  desc:{en:"Final date of the Portugal tour.",pt:"Última data da turnê em Portugal.",de:"Letzter Termin der Portugal‑Tour."},
+  url:"https://dnbrasil.dn.pt/primeira-turn-europeia-de-chico-chico-ter-quatro-shows-em-portugal"},
 ];
 /* ====================== DATA-END ====================== */
 
