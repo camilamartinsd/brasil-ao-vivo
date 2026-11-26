@@ -105,6 +105,15 @@
   .tag.new{background:var(--coral);color:#fff}
   .ev .go{align-self:center;white-space:nowrap;text-decoration:none;font-weight:700;font-size:13px;border:1.5px solid var(--green);border-radius:999px;padding:7px 14px}
   .ev .go:hover{background:var(--green);color:#fff}
+  details.onnow{background:#fff;border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:14px;margin-bottom:10px}
+  details.onnow summary{list-style:none;cursor:pointer;padding:14px 18px;display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap}
+  details.onnow summary::-webkit-details-marker{display:none}
+  .onnow-title{font-weight:700;font-size:16px}
+  .onnow-count{background:#e6eefb;color:var(--blue);border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700}
+  .onnow-cities{color:var(--muted);font-size:13px;flex:1;min-width:140px}
+  .onnow-btn{font-weight:700;font-size:13px;color:var(--green);white-space:nowrap}
+  details.onnow[open] .onnow-btn .sh,details.onnow:not([open]) .onnow-btn .hd{display:none}
+  .onnow-body{padding:0 10px 2px}
   .empty{padding:40px;text-align:center;color:var(--muted)}
 
   section.info{border-top:1px solid var(--line);background:#f4efe3}
@@ -607,7 +616,7 @@ const T={
   search:"Search artist, city, venue…",newsTitle:"What's new · <em>just announced</em>",checked:"Last checked for new dates:",
   tracked:"Tracked since",newWeek:"New this week ·",announced:"Announced",seeTimeline:"See in timeline ↓",source:"Source ↗",
   older:"Show older announcements",fewer:"Show fewer",ev1:"event",evN:"events",
-  tConcert:"Concert",tParty:"Party",tTheatre:"Theatre",tExhibition:"Exhibition",untilL:"until",onNow:"On now",inKoeln:"In Cologne",km:"~{n} km from Cologne",top:"Top pick",newAdded:"NEW · added",tickets:"Tickets & info ↗",
+  tConcert:"Concert",tParty:"Party",tTheatre:"Theatre",tExhibition:"Exhibition",onNowGroup:"Exhibitions on now",showAllL:"Show all",hideL:"Hide",untilL:"until",onNow:"On now",inKoeln:"In Cologne",km:"~{n} km from Cologne",top:"Top pick",newAdded:"NEW · added",tickets:"Tickets & info ↗",
   empty:"Nothing matches yet — try “All Europe”, or check the venues listed below for new dates.",
   sUp:"upcoming dates",sNear:"near Cologne",sDe:"in Germany",sCities:"cities",
   legNear:"within ~250 km of Cologne (straight line)",legTop:"editor's choice: big name, easy to reach",legNew:"added in the last 30 days",
@@ -620,7 +629,7 @@ const T={
   search:"Buscar artista, cidade, local…",newsTitle:"Novidades · <em>recém‑anunciados</em>",checked:"Última verificação de novas datas:",
   tracked:"Na agenda desde",newWeek:"Novo esta semana ·",announced:"Anunciado em",seeTimeline:"Ver na agenda ↓",source:"Fonte ↗",
   older:"Mostrar anúncios anteriores",fewer:"Mostrar menos",ev1:"evento",evN:"eventos",
-  tConcert:"Show",tParty:"Festa",tTheatre:"Teatro",tExhibition:"Exposição",untilL:"até",onNow:"Em cartaz",inKoeln:"Em Colônia",km:"~{n} km de Colônia",top:"Destaque",newAdded:"NOVO · adicionado em",tickets:"Ingressos e info ↗",
+  tConcert:"Show",tParty:"Festa",tTheatre:"Teatro",tExhibition:"Exposição",onNowGroup:"Exposições em cartaz",showAllL:"Ver todas",hideL:"Ocultar",untilL:"até",onNow:"Em cartaz",inKoeln:"Em Colônia",km:"~{n} km de Colônia",top:"Destaque",newAdded:"NOVO · adicionado em",tickets:"Ingressos e info ↗",
   empty:"Nada encontrado — experimente “Toda a Europa” ou confira as casas listadas abaixo.",
   sUp:"próximas datas",sNear:"perto de Colônia",sDe:"na Alemanha",sCities:"cidades",
   legNear:"a até ~250 km de Colônia (em linha reta)",legTop:"escolha da editora: grande nome, fácil de chegar",legNew:"adicionado nos últimos 30 dias",
@@ -633,7 +642,7 @@ const T={
   search:"Künstler, Stadt, Ort suchen…",newsTitle:"Neuigkeiten · <em>frisch angekündigt</em>",checked:"Zuletzt auf neue Termine geprüft:",
   tracked:"Gelistet seit",newWeek:"Neu diese Woche ·",announced:"Angekündigt am",seeTimeline:"In der Timeline ansehen ↓",source:"Quelle ↗",
   older:"Ältere Meldungen anzeigen",fewer:"Weniger anzeigen",ev1:"Termin",evN:"Termine",
-  tConcert:"Konzert",tParty:"Party",tTheatre:"Theater",tExhibition:"Ausstellung",untilL:"bis",onNow:"Läuft",inKoeln:"In Köln",km:"~{n} km von Köln",top:"Tipp",newAdded:"NEU · hinzugefügt am",tickets:"Tickets & Infos ↗",
+  tConcert:"Konzert",tParty:"Party",tTheatre:"Theater",tExhibition:"Ausstellung",onNowGroup:"Laufende Ausstellungen",showAllL:"Alle anzeigen",hideL:"Ausblenden",untilL:"bis",onNow:"Läuft",inKoeln:"In Köln",km:"~{n} km von Köln",top:"Tipp",newAdded:"NEU · hinzugefügt am",tickets:"Tickets & Infos ↗",
   empty:"Keine Treffer — versuch „Ganz Europa“ oder schau bei den unten genannten Spielstätten nach neuen Terminen.",
   sUp:"kommende Termine",sNear:"nahe Köln",sDe:"in Deutschland",sCities:"Städte",
   legNear:"im Umkreis von ~250 km um Köln (Luftlinie)",legTop:"Redaktionstipp: großer Name, gut erreichbar",legNew:"in den letzten 30 Tagen hinzugefügt",
@@ -740,13 +749,27 @@ function render(){
   if(!items.length){list.innerHTML=`<div class="empty">${t("empty")}</div>`;return;}
   const fM=fmt({month:"long",year:"numeric"}), fS=fmt({month:"short"}), fW=fmt({weekday:"short"}), fDM=fmt({day:"numeric",month:"short"});
   const typeLabel={Concert:t("tConcert"),Party:t("tParty"),Theatre:t("tTheatre"),Exhibition:t("tExhibition")};
+  // Exhibitions already open are grouped into one collapsible block (unless only Exhibitions are selected)
+  const groupOn=type!=="Exhibition";
+  const onNow=groupOn?items.filter(e=>e.running&&e.type==="Exhibition"):[];
+  const rest=groupOn?items.filter(e=>!(e.running&&e.type==="Exhibition")):items;
+  const head=m=>{const n=items.filter(x=>fM.format(D(x.sk))===m).length;
+    return `<h2 class="month">${m.charAt(0).toUpperCase()+m.slice(1)}<small>${n} ${n>1?t("evN"):t("ev1")}</small></h2>`;};
   let html="",cur="";
-  for(const e of items){
-    const dt=D(e.running?e.until:e.d);
+  if(onNow.length){
+    cur=fM.format(D(TODAY)); html+=head(cur);
+    const cities=[...new Set(onNow.map(e=>cityName(e.city)))];
+    html+=`<details class="onnow"${onNowOpen?" open":""}><summary><span class="onnow-title">${t("onNowGroup")}</span><span class="onnow-count">${onNow.length}</span><span class="onnow-cities">${esc(cities.slice(0,5).join(" · "))}${cities.length>5?" …":""}</span><span class="onnow-btn"><span class="sh">${t("showAllL")} ▾</span><span class="hd">${t("hideL")} ▴</span></span></summary><div class="onnow-body">${onNow.map(card).join("")}</div></details>`;
+  }
+  for(const e of rest){
     const m=fM.format(D(e.sk));
-    if(m!==cur){cur=m;const n=items.filter(x=>fM.format(D(x.sk))===m).length;
-      html+=`<h2 class="month">${m.charAt(0).toUpperCase()+m.slice(1)}<small>${n} ${n>1?t("evN"):t("ev1")}</small></h2>`;}
-    html+=`<article class="ev${e.near?" near":""}" id="${e.id}">
+    if(m!==cur){cur=m; html+=head(m);}
+    html+=card(e);
+  }
+  list.innerHTML=html;
+  function card(e){
+    const dt=D(e.running?e.until:e.d);
+    return `<article class="ev${e.near?" near":""}" id="${e.id}">
       <div class="date${e.running?" run":""}">${e.running?`<div class="w">${t("untilL")}</div>`:""}<div class="m">${fS.format(dt).replace(".","")}</div><div class="d">${dt.getDate()}</div>${e.running?"":`<div class="w">${fW.format(dt).replace(".","")}${e.t?" · "+e.t:""}</div>`}</div>
       <div>
         <h3>${esc(L(e.title))}</h3>
@@ -757,8 +780,9 @@ function render(){
       <a class="go" href="${e.url}" target="_blank" rel="noopener noreferrer">${t("tickets")}</a>
     </article>`;
   }
-  list.innerHTML=html;
 }
+let onNowOpen=false;
+document.getElementById("list").addEventListener("toggle",ev=>{if(ev.target.matches&&ev.target.matches("details.onnow")) onNowOpen=ev.target.open;},true);
 
 function renderAll(){applyStatic();stats();renderFeed();render();}
 
@@ -792,7 +816,7 @@ document.getElementById("feed").addEventListener("click",ev=>{
   const b=ev.target.closest("[data-jump]"); if(!b) return;
   let el=document.getElementById(b.dataset.jump);
   if(!el){region="all";type="all";q="";document.getElementById("q").value="";applyStatic();render();renderFeed();el=document.getElementById(b.dataset.jump);}
-  if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}
+  if(el){const det=el.closest("details");if(det){det.open=true;onNowOpen=true;}el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}
 });
 renderAll();
 try{matchMedia("(max-width:720px)").addEventListener("change",()=>renderFeed());}catch(e){}
