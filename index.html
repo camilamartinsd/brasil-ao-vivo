@@ -246,9 +246,10 @@ const C={ // city coordinates [lat,lon]
   "Lisbon":[38.72,-9.14],"Porto":[41.15,-8.61],"Barcelona":[41.39,2.17],"Rome":[41.90,12.50],
   "Hannover":[52.37,9.73],"Freiburg":[47.99,7.85],"Mannheim":[49.49,8.47],"Bottrop":[51.52,6.92],
   "Venice":[45.44,12.33],"Sindelfingen":[48.71,9.00],"Nürnberg":[49.45,11.08],"Rotterdam":[51.92,4.48],
-  "Bonn":[50.71,7.10],"Bassano del Grappa":[45.77,11.73],"Ovar":[40.86,-8.63],"Braga":[41.55,-8.42]
+  "Bonn":[50.71,7.10],"Bassano del Grappa":[45.77,11.73],"Ovar":[40.86,-8.63],"Braga":[41.55,-8.42],
+  "Karlsruhe":[49.01,8.40],"Dresden":[51.05,13.74],"Santander":[43.46,-3.81]
 };
-const DE=new Set(["Köln","Kempen","Bergkamen","Berlin","Hamburg","Frankfurt","München","Hannover","Freiburg","Mannheim","Bottrop","Sindelfingen","Nürnberg","Bonn"]);
+const DE=new Set(["Köln","Kempen","Bergkamen","Berlin","Hamburg","Frankfurt","München","Hannover","Freiburg","Mannheim","Bottrop","Sindelfingen","Nürnberg","Bonn","Karlsruhe","Dresden"]);
 // Optional translated city names (key = city as used in EVENTS)
 const CITY_NAMES={
   "Köln":{en:"Cologne",pt:"Colônia"},"Berlin":{pt:"Berlim"},"Hamburg":{pt:"Hamburgo"},"München":{en:"Munich",pt:"Munique"},
@@ -271,9 +272,21 @@ const CITY_NAMES={
    - NEWS: fields date (YYYY-MM-DD announced/added), headline, text, url,
      refs: ["YYYY-MM-DD|City", ...] linking to events in the timeline. Sorted newest first in code.
 */
-const META={launch:"2026-11-18",lastChecked:"2026-11-23"};
+const META={launch:"2026-11-18",lastChecked:"2026-11-26"};
 
 const NEWS=[
+ {date:"2026-11-26",
+  headline:{en:"Badi Assad & Sérgio Pererê bring “Bentu” to Germany in January",pt:"Badi Assad e Sérgio Pererê trazem “Bentu” à Alemanha em janeiro",de:"Badi Assad & Sérgio Pererê bringen „Bentu“ im Januar nach Deutschland"},
+  text:{en:"The guitar virtuoso and the singer from Minas Gerais play Karlsruhe (21 Jan) and Dresden (23 Jan 2027) with their Afro‑Brazilian duo album.",pt:"A virtuose do violão e o cantor mineiro tocam em Karlsruhe (21/1) e Dresden (23/1/2027) com o álbum afro‑brasileiro do duo.",de:"Die Gitarrenvirtuosin und der Sänger aus Minas Gerais spielen ihr afrobrasilianisches Duo‑Album in Karlsruhe (21. Jan.) und Dresden (23. Jan. 2027)."},
+  url:"https://xkale.karlsruhe.de/db/termine/musik/bentu",refs:["2027-01-21|Karlsruhe","2027-01-23|Dresden"]},
+ {date:"2026-11-26",
+  headline:{en:"Last days: the São Paulo Biennial in Berlin",pt:"Últimos dias: a Bienal de São Paulo em Berlim",de:"Letzte Tage: die São‑Paulo‑Biennale in Berlin"},
+  text:{en:"The 36th Bienal de São Paulo's first German edition at Haus der Kulturen der Welt closes on 6 December.",pt:"A primeira edição alemã da 36ª Bienal de São Paulo, na Haus der Kulturen der Welt, termina em 6 de dezembro.",de:"Die erste deutsche Ausgabe der 36. Bienal de São Paulo im Haus der Kulturen der Welt endet am 6. Dezember."},
+  url:"https://artincontext.org/36th-bienal-sao-paulo-berlin-edition/",refs:["2026-09-12|Berlin"]},
+ {date:"2026-11-26",
+  headline:{en:"Solange Pessoa's first show in Spain",pt:"A primeira exposição de Solange Pessoa na Espanha",de:"Solange Pessoas erste Ausstellung in Spanien"},
+  text:{en:"Centro Botín in Santander shows the artist from Minas Gerais until 28 March 2027, including two new installations.",pt:"O Centro Botín, em Santander, apresenta a artista mineira até 28 de março de 2027, com duas instalações inéditas.",de:"Das Centro Botín in Santander zeigt die Künstlerin aus Minas Gerais bis 28. März 2027, darunter zwei neue Installationen."},
+  url:"https://www.centrobotin.org/en/exposicion/solange-pessoa/",refs:["2026-10-10|Santander"]},
  {date:"2026-11-23",
   headline:{en:"Chico Chico continues his tour in Portugal",pt:"Chico Chico segue a turnê por Portugal",de:"Chico Chico setzt seine Tour in Portugal fort"},
   text:{en:"After Berlin and Dublin, the Rio singer‑songwriter plays four Portuguese dates: Porto (30 Nov), Ovar (3 Dec), Lisbon's Casa Capitão (5 Dec) and Braga (7 Dec).",pt:"Depois de Berlim e Dublin, o cantor e compositor carioca faz quatro shows em Portugal: Porto (30/11), Ovar (3/12), Casa Capitão em Lisboa (5/12) e Braga (7/12).",de:"Nach Berlin und Dublin spielt der Singer‑Songwriter aus Rio vier Termine in Portugal: Porto (30. Nov.), Ovar (3. Dez.), Casa Capitão in Lissabon (5. Dez.) und Braga (7. Dez.)."},
@@ -539,6 +552,18 @@ const EVENTS=[
  {d:"2026-12-07",title:"Chico Chico",city:"Braga",venue:"Espaço Vita",type:"Concert",added:"2026-11-23",
   desc:{en:"Final date of the Portugal tour.",pt:"Última data da turnê em Portugal.",de:"Letzter Termin der Portugal‑Tour."},
   url:"https://dnbrasil.dn.pt/primeira-turn-europeia-de-chico-chico-ter-quatro-shows-em-portugal"},
+ {d:"2027-01-21",t:"20:00",title:"Badi Assad & Sérgio Pererê – Bentu",city:"Karlsruhe",venue:"Kulturzentrum Tollhaus",type:"Concert",added:"2026-11-26",
+  desc:{en:"Guitar virtuoso Badi Assad and singer‑multi‑instrumentalist Sérgio Pererê – Afro‑Brazilian songs rooted in the Reinado tradition of Minas Gerais.",pt:"A virtuose do violão Badi Assad e o cantor e multi‑instrumentista Sérgio Pererê – canções afro‑brasileiras enraizadas no Reinado mineiro.",de:"Gitarrenvirtuosin Badi Assad und Sänger und Multiinstrumentalist Sérgio Pererê – afrobrasilianische Lieder aus der Reinado‑Tradition von Minas Gerais."},
+  url:"https://xkale.karlsruhe.de/db/termine/musik/bentu"},
+ {d:"2027-01-23",t:"20:00",title:"Badi Assad & Sérgio Pererê – Bentu",city:"Dresden",venue:"Jazzclub Tonne",type:"Concert",added:"2026-11-26",
+  desc:{en:"The Brazilian duo's album “Bentu” live – guitar, voice and body percussion.",pt:"O álbum “Bentu” do duo brasileiro ao vivo – violão, voz e percussão corporal.",de:"Das Album „Bentu“ des brasilianischen Duos live – Gitarre, Stimme und Body‑Percussion."},
+  url:"https://www.mvp.de/dresden/veranstaltungen/badi-assad-sergio-perere-bentu-bra-jazzclub-tonne-dresden/"},
+ {d:"2026-09-12",until:"2026-12-06",title:{en:"36th Bienal de São Paulo – Berlin edition",pt:"36ª Bienal de São Paulo – edição de Berlim",de:"36. Bienal de São Paulo – Berliner Ausgabe"},city:"Berlin",venue:"Haus der Kulturen der Welt (HKW)",type:"Exhibition",added:"2026-11-26",
+  desc:{en:"“Not All Travellers Walk Roads – Of Humanity as Practice”: the São Paulo Biennial's first presentation in Germany, with 32 artistic positions and new works made for HKW.",pt:"“Nem todo viandante anda estradas – Da humanidade como prática”: a primeira apresentação da Bienal de São Paulo na Alemanha, com 32 posições artísticas e obras novas para a HKW.",de:"„Not All Travellers Walk Roads – Of Humanity as Practice“: die erste Präsentation der São‑Paulo‑Biennale in Deutschland, mit 32 künstlerischen Positionen und neuen Arbeiten für das HKW."},
+  url:"https://artincontext.org/36th-bienal-sao-paulo-berlin-edition/"},
+ {d:"2026-10-10",until:"2027-03-28",title:"Solange Pessoa – Of Day or Night",city:"Santander",venue:"Centro Botín",type:"Exhibition",added:"2026-11-26",price:"€9",
+  desc:{en:"First exhibition in Spain of the artist from Minas Gerais – organic and mineral materials, works from the 1990s to today and two new installations.",pt:"Primeira exposição na Espanha da artista mineira – materiais orgânicos e minerais, obras dos anos 1990 até hoje e duas novas instalações.",de:"Erste Ausstellung der Künstlerin aus Minas Gerais in Spanien – organische und mineralische Materialien, Werke von den 1990ern bis heute und zwei neue Installationen."},
+  url:"https://www.centrobotin.org/en/exposicion/solange-pessoa/"},
 ];
 /* ====================== DATA-END ====================== */
 
